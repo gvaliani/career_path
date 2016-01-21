@@ -1,0 +1,21 @@
+<div class="modal fade {{modal.config.cssClass}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header" data-ng-show="modal.config.showHeader">
+          <button type="button" data-ng-click="modal.close()" class="close" aria-label="Close">
+          	<span class="axp-icon-close" title="Close"> </span>
+      	</button>
+          <h4>{{::modal.config.labels.title}}</h4>
+        </div>
+        <div class="modal-body">
+          <p ng-class="modal.msgCssClass">{{modal.message}}</p>
+          <ng-transclude></ng-transclude>
+        </div>
+        <div class="modal-footer" data-ng-show="modal.config.showFooter">
+          <button type="button" class="btn btn-default" data-ng-click="modal.cancel()">{{::modal.config.labels.cancel}}</button>
+          <button type="button" class="btn btn-primary" data-ng-click="modal.accept()">{{::modal.config.labels.accept}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

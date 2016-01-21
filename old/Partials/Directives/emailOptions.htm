@@ -1,0 +1,27 @@
+﻿<div data-bootstrap-modal="true" 
+     data-show-modal="showEmailOptionsModal" 
+     data-modal-title="Email Options"
+     data-confirmation-button="Save" 
+     data-cancel-button="Cancel"
+     data-confirmation-callback="saveEmailOptions()"
+     data-close-callback="restoreEmailOptions()">
+    <div class="row-fluid form-horizontal email-options-modal" data-ng-form="true" name="emailoptionsform">
+            <div id="EmailHeader">
+                <h5>Email Header</h5>
+                <div class="checkbox">
+                    <label><input type="checkbox" data-ng-model="messageData.hasViewOnline" /> Include View Online link</label> 
+                </div> 
+            </div>
+            <div id="EmailFooter">
+                <h5>Email Footer</h5>
+                <div class="checkbox">
+                    <label><input type="checkbox" data-ng-model="messageData.hasLogoAddress" /> Include My Logo & Address</label> 
+                </div> 
+            </div>
+            <div class="pull-right">
+                <div class="checkbox">
+                    <label><input type="checkbox" data-ng-model="data.makeDefault"> Make these my default settings</label> 
+                </div> 
+            </div>
+    </div>
+</div>

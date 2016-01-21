@@ -1,0 +1,48 @@
+@import '../../styles/mixins/main.less';
+
+.modal{
+  &-login{
+      top:12%;
+
+      .modal-dialog {
+        width: 294px;
+      }
+
+      &__link{
+        &--fpassword,
+        &--fpassword:active,
+        &--fpassword:hover{
+          color:@color-Dark-Gray;
+          font-size:14px;
+        }
+      }
+  }
+
+  font-family: @BentonSans;
+  &-header{
+    border:none;
+    padding-bottom:0;
+    padding-left: 35px;
+    h4{
+      font-size:20px;
+      font-family: @BentonSans-Medium;
+    }
+  }
+  &-body{
+    font-size:14px;
+    padding: 0 30px;
+    padding-bottom: 10px;
+    &__label{
+      font-family: @BentonSans;
+      color:@color-Gray;
+      font-weight: 400;
+    }
+    .primary-button{
+      margin-top:15px;
+      margin-bottom:10px;
+    }
+    &__link{
+      font-family:@BentonSans-Medium;
+    }
+  }
+}
