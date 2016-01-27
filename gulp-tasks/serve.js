@@ -45,7 +45,7 @@ function serve(gulp, $){
 
                 var options = {
                   hostname: host,
-                  port: 80,
+                  port: 443,
                   path: grantAccessPath,
                   method: 'POST',
                   headers: {
