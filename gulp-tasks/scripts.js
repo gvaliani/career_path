@@ -186,7 +186,7 @@ function scripts(gulp, $){
 	function scripts(){
 		return gulp.src($.paths.js.tmpAll)
 			.pipe($.sourcemaps.init({loadMaps: true}))
-		 	.pipe($.uglify())
+		 	//.pipe($.uglify())
 		 	.on('error', $.util.log)
 		 	.pipe($.sourcemaps.write('./'))
 		 	.pipe(gulp.dest($.paths.out));

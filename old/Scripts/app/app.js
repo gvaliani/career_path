@@ -19,7 +19,8 @@ define('app',
                                 $delegate(exception, cause);
                                 window.errorHandler(exception, cause, null, null);
                             };
-                        }]);
+                        }
+                    ]);
 
                     /* End exception handling */
 
