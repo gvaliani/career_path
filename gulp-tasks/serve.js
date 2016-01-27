@@ -7,7 +7,7 @@ function serve(gulp, $){
     fs = require("fs"),
     path = require("path"),
     url = require("url"),
-    http = require("http"),
+    http = require("https"),
     querystring = require('querystring'),
     historyApiFallback = require('connect-history-api-fallback'), // provides fallback for html5 folders on browsersync
 	proxyMiddleware = require('http-proxy-middleware');
@@ -35,9 +35,9 @@ function serve(gulp, $){
 
 
             // get access token
-            function getAccessToken(){
+            function getAccessToken(callback){
                 var postData = querystring.stringify({
-                    'gran_type':'password',
+                    'grant_type':'password',
                     'username' : username,
                     'password': password
                 });
@@ -45,7 +45,6 @@ function serve(gulp, $){
 
                 var options = {
                   hostname: host,
-                  port: 443,
                   path: grantAccessPath,
                   method: 'POST',
                   headers: {
@@ -56,12 +55,12 @@ function serve(gulp, $){
                 };
 
                 var req = http.request(options, (res) => {
-                    console.log(options);
-                  console.log('STATUS:', res.statusCode);
-                  console.log('HEADERS: ', JSON.stringify(res.headers));
                   res.setEncoding('utf8');
                   res.on('data', (chunk) => {
-                    console.log('BODY: ', chunk);
+                    accessToken = JSON.parse(chunk)['access_token'];
+                    if(callback && typeof callback === 'function'){
+                        callback();
+                    }
                   });
                   res.on('end', () => {
                     console.log('No more data in response.')
@@ -77,7 +76,45 @@ function serve(gulp, $){
                 req.end();
             }
 
-            getAccessToken();
+            function getPromotions(){
+                var postData = querystring.stringify({
+                    'brandid':'1173'
+                });
+
+
+                var options = {
+                  hostname: host,
+                  path: promotionsPath,
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':  "Bearer " + accessToken,
+                    'Content-Length': postData.length
+                  }
+                };
+
+                var promotions;
+
+                var req = http.request(options, (res) => {
+                  res.setEncoding('utf8');
+                  res.on('data', (chunk) => {
+                    //var response = JSON.parse(chunk);
+                    console.log(chunk);
+                  });
+                  res.on('end', () => {
+                  })
+                });
+
+                req.on('error', (e) => {
+                  console.log('problem with request: ${e.message}', e.message);
+                });
+
+                // write data to request body
+                req.write(postData);
+                req.end();
+            }
+
+            getAccessToken(getPromotions);
  
         }
 
