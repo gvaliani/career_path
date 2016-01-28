@@ -23,7 +23,7 @@ function serve(gulp, $){
                 '/api/contentblocks': promotionsApi
             }
 
-        function promotionsApi(){
+        function promotionsApi(request, response){
             var username = "APITest",
                 password = "APITest1234",
                 key = "yDEaxRuvuDFvGBCAv1byA",
@@ -62,13 +62,10 @@ function serve(gulp, $){
                         callback();
                     }
                   });
-                  res.on('end', () => {
-                    console.log('No more data in response.')
-                  })
                 });
 
                 req.on('error', (e) => {
-                  console.log('problem with request: ${e.message}', e.message);
+                  console.log('problem with request: ', e.message);
                 });
 
                 // write data to request body
@@ -76,11 +73,19 @@ function serve(gulp, $){
                 req.end();
             }
 
-            function getPromotions(){
-                var postData = querystring.stringify({
-                    'brandid':'1173'
-                });
+            function randomizeArray(arr){
+                function randomOrdinal(){
+                    return (Math.round(Math.random())-0.5);
+                }
 
+                return arr.sort(randomOrdinal);
+            }
+
+            function getPromotions(){
+                var data = JSON.stringify({
+                    "brandid":"1173",
+                    "status":1
+                });
 
                 var options = {
                   hostname: host,
@@ -89,19 +94,28 @@ function serve(gulp, $){
                   headers: {
                     'Content-Type': 'application/json',
                     'Authorization':  "Bearer " + accessToken,
-                    'Content-Length': postData.length
+                    'Content-Length': data.length
                   }
                 };
 
-                var promotions;
+                var promotions = '';
 
                 var req = http.request(options, (res) => {
                   res.setEncoding('utf8');
                   res.on('data', (chunk) => {
-                    //var response = JSON.parse(chunk);
-                    console.log(chunk);
+                    promotions += chunk; 
                   });
                   res.on('end', () => {
+                    promotions = JSON.parse(promotions).promotions;
+                    promotions = randomizeArray(promotions).slice(0,5);
+                    promotions = promotions.map(function(el){ 
+                        return {
+                            name: el.name,
+                            description: el.description,
+                            type: el.type
+                        };
+                    });
+                    getContentBlocks(promotions);
                   })
                 });
 
@@ -110,8 +124,28 @@ function serve(gulp, $){
                 });
 
                 // write data to request body
-                req.write(postData);
+                req.write(data);
                 req.end();
+            }
+
+            function getContentBlocks(promotions){
+                var contentBlockPattern = "<li><strong>{{name}}</strong><br/><span>{{description}}</span><br/><span>{{type}}</span></li>",
+                    contentHtml = '';
+
+
+                for (var i = 0; i < promotions.length; i++) {
+                    contentHtml+= contentBlockPattern.replace('{{name}}', promotions[i].name)
+                        .replace('{{description}}', promotions[i].description)
+                        .replace('{{type}}', promotions[i].type);
+                };
+
+
+                fs.readFile(bowerFolder + '/app/test/get-content-blocks.json', 'utf8', function (err, data) {
+                  if (err) throw err;
+                  data = JSON.parse(data);
+                  data[data.length-1].html.replace('##content##', contentHtml);
+                  response.end(JSON.stringify(data), 'utf-8');
+                });
             }
 
             getAccessToken(getPromotions);
@@ -144,7 +178,7 @@ function serve(gulp, $){
             }
 
             if(routeHandlers[fileName]){
-                return routeHandlers[fileName]();
+                return routeHandlers[fileName](req, res);
             }
 
 			return next();

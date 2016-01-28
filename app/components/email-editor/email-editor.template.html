@@ -8,7 +8,7 @@
 
 <!-- Message Data Form -->
 
-{{contentBlocks}}
+<link rel="stylesheet" href="/styles/editor.css">
 
 <div class="row" data-ng-form="true" name="messageDataForm">
     <div class="col-xs-6 col-xs-offset-2">
@@ -33,13 +33,6 @@
                     <textarea id="subject" type="text" maxlength="250" spellcheck="true" value="" name="subject" data-ng-required="true" class="col-xs-6 form-control" data-ng-model="messageData.subject" data-enter="true"></textarea>
                     <span class="help-inline" data-ng-show="submitted && messageDataForm.subject.$error.required">Required</span>                
                 </div>
-            </div>
-            <div class="form-group" data-ng-show="showJoinPageText">
-                <label class="control-label col-xs-3">Join Page Text: </label>
-                <div class="col-xs-9">
-                    <input data-ng-model="joinPageText" id="joinPageText" type="text" placeholder="Example: Join now and get a free appetizer on your next visit" name="joinPageText" class="col-xs-8" /> (Optional)
-                    <label class="helpJoinPage">Text you enter here will appear at the top of your eClub Join Page. </label>                    
-                </div>
             </div> 
         </div>
     </div>
@@ -62,7 +55,7 @@
         <div class="editor-content row">
             <div class="row">
                 <table id="layoutContentBlocks">
-                    <tr class="droppableContentBlock ui-helper-clearfix" data-ng-repeat="block in layoutContentBlocks"></tr>
+                    <tr class="droppableContentBlock ui-helper-clearfix" data-ng-repeat="block in editorCtrl.contentBlocks"></tr>
                 </table>
             </div>
         </div>

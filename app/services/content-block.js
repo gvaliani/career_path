@@ -8,7 +8,7 @@ function contentBlockServiceWrapper(angular, app) {
 
 	function contentBlockService(constants, values, $q, $http){
 		function getAll(){
-			return $http.get('/api/contentblocks', function(response){
+			return $http.get('/api/contentblocks').then(function onOk(response){
 				return response.data;
 			});
 		}

@@ -4,6 +4,7 @@ function emailEditorDirective(angular, app) {
 	'use angular template'; //jshint ignore:line
 
 	require('./../../services/content-block.js')(angular, app);
+	require('./../droppable-content-block/droppable-content-block.js')(angular, app);
 
 	app.directive('fbEmailEditor', emailEditorDirective);
 
@@ -25,6 +26,8 @@ function emailEditorDirective(angular, app) {
 			restrict:'E',
 			link: link,
 			template: template,
+			controllerAs: 'editorCtrl',
+			bindToController: true,
 			controller: emailEditorController
 		};
 
@@ -53,6 +56,7 @@ function emailEditorDirective(angular, app) {
 				});
 
 				cbService.getAll().then(function onAllCb(response){
+					console.log('response', response);
 					self.contentBlocks = response;
 				});
 			}
