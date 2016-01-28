@@ -3,12 +3,19 @@ function emailEditorDirective(angular, app) {
 
 	'use angular template'; //jshint ignore:line
 
+	//services
 	require('./../../services/content-block.js')(angular, app);
+	require('./../../services/message-service.js')(angular, app);
+
+	//helpers
+	require('./../../helpers/unsafe-filter.js')(angular, app);
+
+	// directives
 	require('./../droppable-content-block/droppable-content-block.js')(angular, app);
 
 	app.directive('fbEmailEditor', emailEditorDirective);
 
-	emailEditorDirective.$inject = ['$log', '_', 'email-editor.template.html', 'contentBlockService'];
+	emailEditorDirective.$inject = ['$log', '_', 'email-editor.template.html', 'contentBlockService', 'messageService', '$compile'];
 
 	/**
 	* @name app.directive: fbEmailEditor
@@ -20,7 +27,7 @@ function emailEditorDirective(angular, app) {
 	<fb-email-editor data-config="home.modalLoginConfig">
 	</fb-email-editor>
 	 */
-	function emailEditorDirective($log, _, template, cbService){
+	function emailEditorDirective($log, _, template, cbService, messageService, compile){
 
 		return {
 			restrict:'E',
@@ -38,7 +45,10 @@ function emailEditorDirective(angular, app) {
 
 		function emailEditorController(){
 			
-			var self = this; //jshint ignore:line
+			var self = this, //jshint ignore:line
+				autosaveInitialized = false,
+				undoEnabled = false,
+				redoEnabled = false;
 
 			init();
 
@@ -56,10 +66,29 @@ function emailEditorDirective(angular, app) {
 				});
 
 				cbService.getAll().then(function onAllCb(response){
-					console.log('response', response);
 					self.contentBlocks = response;
 				});
+
+				messageService.get().then(function onMessageGot(response){
+					compileMessageHtml(response);
+				});
+
 			}
+
+           function compileMessageHtml(backendMessage) {
+                self.editor = backendMessage;
+                //self.editor = compile(backendMessage)(self);
+                
+                //console.log('htmlEditor', self.editor);
+                // scope.messageReady = 1;
+                // scope.isSuperUser = configuration.isSuperUser;
+                // if (!configuration.loaded) {
+                //     dc.configurationPromise.$promise.then(function (configurationData) {
+                //         scope.isSuperUser = configurationData.IsSuperUser;
+                //     });
+                // }
+            }
+
 		}
 
 	}

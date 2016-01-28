@@ -9,6 +9,7 @@
 <!-- Message Data Form -->
 
 <link rel="stylesheet" href="/styles/editor.css">
+<link rel="stylesheet" href="/styles/jquery-ui-1.10.3.custom.css">
 
 <div class="row" data-ng-form="true" name="messageDataForm">
     <div class="col-xs-6 col-xs-offset-2">
@@ -81,7 +82,7 @@
             </div>
         </div>
         <div class="row">
-            <div id="editorCanvas" class="row content ui-corner-all" data-ng-bind-html="editor">
+            <div id="editorCanvas" class="row content ui-corner-all" data-ng-bind-html="editorCtrl.editor | unsafe">
             </div>
         </div>
     </div>
@@ -96,7 +97,7 @@
 </div>
 
 <!-- View Templates -->
-<div data-edit-content-view="true" data-ng-show="false">
+<div id="viewTemplates" data-ng-show="false">
     <img src="/Images/editorcontentactivedrag.png" class="droppableContentBlockDrag" style="position:relative; z-index:10000; top:-75px; left:95px;" />
     <table>  
         <tr class="dragging"><td><div><img src="/Images/editortableactivedrag.png" /><p>Drop Here!</p></div></td></tr>

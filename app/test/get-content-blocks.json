@@ -73,7 +73,7 @@
 	},
 	{
 		"id":15,
-		"thumbnailUrl":"/images/contentblocks/htmlblockpreview_new.jpg",
+		"thumbnailUrl":"/images/contentblocks/offerblockpreview_new.jpg",
 		"description":"HTML Content Block",
 		"name":"PromotionsBlock",
 		"html":"<tr class=\"editorContentBlock\" data-promotions=\"true\"><td editable=\"true\" align=\"center\"><ul>##content##</ul></td></tr>"	

@@ -6,7 +6,7 @@ function droppableContentBlockDirective(angular, app) {
 
 	app.directive('droppableContentBlock', droppableContentBlockDirective);
 
-	droppableContentBlockDirective.$inject = ['$log', '_'];
+	droppableContentBlockDirective.$inject = ['$log', '_','constants'];
 
 	/**
 	* @name app.directive: droppableContentBlock
@@ -18,7 +18,7 @@ function droppableContentBlockDirective(angular, app) {
 	<div class="droppableContentBlock">
 	</div>
 	 */
-	function droppableContentBlockDirective($log, _){
+	function droppableContentBlockDirective($log, _, constants){
 
 		return {
 			restrict:'C',
@@ -31,6 +31,34 @@ function droppableContentBlockDirective(angular, app) {
 
 
 		function link(scope, element, attributes, ctrl){
+
+			var viewTemplate = $('#viewTemplate');
+
+            element.draggable({
+                helper: 'clone',
+                connectToSortable: '.' + constants.canvasClass + '>tbody',
+                revert: 'invalid',
+                start: function(evt, ui) {
+                    //drag and drop helper (the contentblock img with the icon on topright)
+                    $(ui.helper).css('z-index', 9999);
+                    $(ui.helper).find('img').css('cursor', 'url("/images/closedhand.cur"), default');
+
+                    //hover image on layout content block
+                    viewTemplate.find('img.droppableContentBlockDrag').clone().appendTo(ui.helper);
+
+                    //html content to be dropped
+                    scope.$parent.droppedContent = scope.block.html;
+                },
+                stop: function() {
+                    rootScope.safeApply(function() {
+                        scope.$parent.disableOverlays = false;
+                    });
+
+                    $('.ui-sortable > tr.dragging').remove();
+                    $('.ui-sortable > tr.emptyBlock').remove();
+                    $('.' + constants.canvasClass).removeClass('hideOverlays');
+                }
+            }).disableSelection();
 
 		}
 

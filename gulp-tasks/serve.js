@@ -8,6 +8,7 @@ function serve(gulp, $){
     path = require("path"),
     url = require("url"),
     http = require("https"),
+    mime = require("mime"),
     querystring = require('querystring'),
     historyApiFallback = require('connect-history-api-fallback'), // provides fallback for html5 folders on browsersync
 	proxyMiddleware = require('http-proxy-middleware');
@@ -17,7 +18,9 @@ function serve(gulp, $){
 		var distFolder = path.resolve(__dirname, "../dist/"),
 			bowerFolder = path.resolve(__dirname, "../"),
 			routes = {
-				'/': '/dist/index.html'
+				'/': '/dist/index.html',
+                '/api/messages/new':'/app/test/get-layout.html',
+                '/api/messages/1':'/app/test/get-message.json'
         	},
             routeHandlers = {
                 '/api/contentblocks': promotionsApi
@@ -173,7 +176,8 @@ function serve(gulp, $){
         	var fileExists = fs.existsSync(folder + fileName);  
             if(custom && fileExists){
             	return fs.readFile(folder + fileName, function(error, content) {
-	                res.end(content, 'utf-8');
+	                res.setHeader("Content-Type", mime.lookup(fileName));
+                    res.end(content, 'utf-8');
             	});
             }
 
