@@ -15,7 +15,6 @@ function values(angular, app, options, _){
     _.extend(defaultValues, options);
 
     app.value('values', defaultValues);
-    // console.log('values', defaultValues);
 }
 
 module.exports = values;

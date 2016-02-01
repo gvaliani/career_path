@@ -92,9 +92,18 @@
     margin-right: 3px;
 }
 
-#editorCanvas {
+#layoutContainer {
     overflow-y: auto;
     position: relative;
+}
+
+#layoutContainer .row{
+    margin: 0;
+}
+
+#layoutContainer .container{
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .layoutTable tr.editorContentBlock a, .layoutTable tr.editorContentBlock a:hover, .layoutTable tr.editorContentBlock a:visited, .layoutTable tr.editorContentBlock a:link
@@ -278,34 +287,51 @@ a.MenuTab, a.step
     color: White !important;
 }
 
-tr.dragging div{    
-    position:relative;
-    left:-60px;
-    color:white; 
-    font-weight:bold;
-    height: 30px;  
-}
 
-tr.dragging.active 
-{       
+.droppable-content-block + .drop-here{
     border:2px dashed #7ae17a;
-    height: 100px;    
+    height: 100px;        
 }
 
-tr.emptyBlock {
+
+.drop-here{
+
+    &.active{
+        border:2px dashed #7ae17a;
+        height: 100px;    
+    }
+
+// The last droppable area have issues if the height is not the same while hovering.
+// ending up in an issue that not the entire area is droppable, so for that we're
+// making the same height  while on over or not.
+
+    &:last{
+        height:100px;
+    }
+
+    p{
+        position:relative; 
+        left:10px; 
+        top:-25px;
+    }
+
+    div{    
+        position:relative;
+        left:-60px;
+        color:white; 
+        font-weight:bold;
+        height: 30px;  
+    }
+}
+
+
+empty-block {
     height: 30px;
-}
 
-tr.emptyBlock img {
-    height: 30px;
-    width: 100%;
-}
-
-tr.dragging p
-{
-    position:relative; 
-    left:10px; 
-    top:-25px;
+    img {
+        height: 30px;
+        width: 100%;
+    }
 }
 
 .btn.redo
@@ -383,18 +409,17 @@ tr.dragging p
     display: none !important;
 }
 
-.editorContentBlock:hover .ui-widget-overlay,
-.editorContentBlock:hover .contentBlockHoverMenuBar {
+.editor-content-block:hover .ui-widget-overlay,
+.editor-content-block:hover .contentBlockHoverMenuBar {
     display: block!important;
 }
 
-table.hideOverlays .editorContentBlock:hover .ui-widget-overlay,
-table.hideOverlays .editorContentBlock:hover .contentBlockHoverMenuBar {
+.hideOverlays .editor-content-block:hover .ui-widget-overlay,
+.hideOverlays .editor-content-block:hover .contentBlockHoverMenuBar {
     display: none!important;
 }
 
-.droppableContentBlock > td > img
-{
+.droppable-content-block td > img{
     cursor:pointer;  
     margin:5px 10px;
     width: 93px;
@@ -654,14 +679,14 @@ div.ui-resizable-handle.ui-resizable-nw
     top:0;    
 }
 
-.editorContentBlock .ui-wrapper
+.editor-content-block .ui-wrapper
 {
     top:0!important;
     left:0!important;
     position: relative!important; /*Fix for misplaced resize icons*/
 }
 
-.editorContentBlock .ui-resizable-disabled.ui-state-disabled
+.editor-content-block .ui-resizable-disabled.ui-state-disabled
 {
     opacity:1;
     filter: Alpha(Opacity=100);
@@ -985,7 +1010,7 @@ a.reservation-button-link.blue {
     margin-right: 10px;
 }
 .closedHandCursor {
-    cursor: url('/Images/closedhand.cur'), default!important;
+    cursor: url('/images/closedhand.cur'), default!important;
 }
 
 .modal.socialFollowStyleModal{

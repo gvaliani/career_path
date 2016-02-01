@@ -16,7 +16,6 @@ function scripts(gulp, $){
 		templateBody = '("<%= url %>","<%= contents %>"',
 		templateFooter = ');';
 
-
 	$.paths.js = {
         app: ['app/**/*.js','app/routes/**/*.js','app/components/**/*.js', '!app/test*', '!app/**/*.spec.js','!app/**/*.e2e.js','!e2e.base.js'],
         moveToTmp : ['app/**/*.js','!app/routes/**/*.js','!app/components/**/*.js', '!app/test/*.js', '!app/**/*.spec.js','!app/**/*.e2e.js','!e2e.base.js'],
@@ -24,6 +23,7 @@ function scripts(gulp, $){
             'bower_components/jquery/dist/jquery.min.js',
             'bower_components/angular/angular.min.js',
             'bower_components/angular-ui-router/release/angular-ui-router.js',
+            'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/underscore/underscore-min.js',
             'bower_components/loadJS/loadJS.js',
             'bower_components/bootstrap/dist/js/bootstrap.min.js',

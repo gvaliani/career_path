@@ -3,7 +3,6 @@ function droppableContentBlockDirective(angular, app) {
 
 	'use angular template'; //jshint ignore:line
 
-
 	app.directive('droppableContentBlock', droppableContentBlockDirective);
 
 	droppableContentBlockDirective.$inject = ['$log', '_','constants'];
@@ -32,27 +31,27 @@ function droppableContentBlockDirective(angular, app) {
 
 		function link(scope, element, attributes, ctrl){
 
-			var viewTemplate = $('#viewTemplate');
+			var draggableHelper = $('#viewTemplates').find('img.droppableContentBlockDrag').clone();
 
             element.draggable({
                 helper: 'clone',
-                connectToSortable: '.' + constants.canvasClass + '>tbody',
+                connectToSortable: '.' + constants.canvasClass,
                 revert: 'invalid',
                 start: function(evt, ui) {
                     //drag and drop helper (the contentblock img with the icon on topright)
-                    $(ui.helper).css('z-index', 9999);
-                    $(ui.helper).find('img').css('cursor', 'url("/images/closedhand.cur"), default');
-
-                    //hover image on layout content block
-                    viewTemplate.find('img.droppableContentBlockDrag').clone().appendTo(ui.helper);
+                    $(ui.helper)
+                    	.css('z-index', 9999)
+                    	.find('img').css('cursor', 'url("/images/closedhand.cur"), default')
+                    	.end()
+                    	.append(draggableHelper); //hover image on layout content block
 
                     //html content to be dropped
-                    scope.$parent.droppedContent = scope.block.html;
+                    // scope.$parent.droppedContent = scope.block.html;
                 },
                 stop: function() {
-                    rootScope.safeApply(function() {
-                        scope.$parent.disableOverlays = false;
-                    });
+                    // rootScope.safeApply(function() {
+                    //     scope.$parent.disableOverlays = false;
+                    // });
 
                     $('.ui-sortable > tr.dragging').remove();
                     $('.ui-sortable > tr.emptyBlock').remove();

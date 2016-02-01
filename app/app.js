@@ -4,7 +4,7 @@
     var constants = $('#constants').data(),
     	values = $('#values').data(),
 		app = angular
-        .module('email-editor', ['ui.router'])
+        .module('email-editor', ['ui.router','ngSanitize'])
         .config([
         	'$stateProvider',
         	'$urlRouterProvider',
@@ -38,8 +38,7 @@
 				$urlRouterProvider.otherwise('/home');
 
 				$stateProvider
-					.state('home', getStateConfig('/home', 'home.template.html', 'homeCtrl', 'home'))
-					.state('ezeclick', getStateConfig('/ezeclick', 'products_landing.template.html', 'products_landingCtrl', 'products_landing'));
+					.state('home', getStateConfig('/home', 'home.template.html', 'homeCtrl', 'home'));
 			}
 		])
 		.run([

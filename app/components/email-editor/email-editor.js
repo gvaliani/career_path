@@ -12,6 +12,8 @@ function emailEditorDirective(angular, app) {
 
 	// directives
 	require('./../droppable-content-block/droppable-content-block.js')(angular, app);
+	require('./../editor-content-block/editor-content-block.js')(angular, app);
+	require('./../editor-canvas/editor-canvas.js')(angular, app);
 
 	app.directive('fbEmailEditor', emailEditorDirective);
 
@@ -40,10 +42,10 @@ function emailEditorDirective(angular, app) {
 
 
 		function link(scope, element, attributes, ctrl){
-
 		}
 
-		function emailEditorController(){
+		emailEditorController.$inject = ['$scope'];
+		function emailEditorController($scope){
 			
 			var self = this, //jshint ignore:line
 				autosaveInitialized = false,
@@ -62,33 +64,17 @@ function emailEditorDirective(angular, app) {
 			 */
 			function init(){
 				_.extend(self, {
-
+					getMessage:getMessage
 				});
 
 				cbService.getAll().then(function onAllCb(response){
 					self.contentBlocks = response;
 				});
-
-				messageService.get().then(function onMessageGot(response){
-					compileMessageHtml(response);
-				});
-
 			}
 
-           function compileMessageHtml(backendMessage) {
-                self.editor = backendMessage;
-                //self.editor = compile(backendMessage)(self);
-                
-                //console.log('htmlEditor', self.editor);
-                // scope.messageReady = 1;
-                // scope.isSuperUser = configuration.isSuperUser;
-                // if (!configuration.loaded) {
-                //     dc.configurationPromise.$promise.then(function (configurationData) {
-                //         scope.isSuperUser = configurationData.IsSuperUser;
-                //     });
-                // }
-            }
-
+			function getMessage(){
+				return messageService.get();
+			}
 		}
 
 	}

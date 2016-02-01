@@ -14,14 +14,15 @@ function constants(angular, app, options, _){
             Deleted: 'Content Block Deleted',
             Created: 'Content Block Created'
         },
-        canvasClass: 'layoutTable',
-        droppableContentBlockClass: 'droppableContentBlock',
-        contentBlockClass: 'editorContentBlock',
+        canvasClass: 'layout-table',
+        contentBlockClass: 'editor-content-block',
+        contentBlockDefaultValue: 'editor-default-value',
+        droppableContentBlockClass: 'droppable-content-block',
+
         editorHtmlContainerId: 'editorCanvas',
         overlayClass: 'ui-widget-overlay',
         imageEditorModal: 'imageEditorModal',
         overlayMenuBarClass: 'contentBlockHoverMenuBar',
-        contentBlockDefaultValue: 'editor-default-value',
         multiColumnClass: 'multiColumn',
 		onEditorContentChangeMessage: 'OnEditorContentChange',
 		storageEditorContentKey: 'EditorContent',
@@ -35,7 +36,6 @@ function constants(angular, app, options, _){
 	_.extend(defaultOptions, options);
 
 	app.constant('constants', defaultOptions);
-    // console.log('constants', defaultOptions);
 }
 
 module.exports = constants;
