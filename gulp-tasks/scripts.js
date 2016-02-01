@@ -23,7 +23,6 @@ function scripts(gulp, $){
             'bower_components/jquery/dist/jquery.min.js',
             'bower_components/angular/angular.min.js',
             'bower_components/angular-ui-router/release/angular-ui-router.js',
-            'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/underscore/underscore-min.js',
             'bower_components/loadJS/loadJS.js',
             'bower_components/bootstrap/dist/js/bootstrap.min.js',

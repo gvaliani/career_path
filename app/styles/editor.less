@@ -295,16 +295,15 @@ a.MenuTab, a.step
 
 
 .drop-here{
-
+    
     &.active{
         border:2px dashed #7ae17a;
         height: 100px;    
     }
 
-// The last droppable area have issues if the height is not the same while hovering.
-// ending up in an issue that not the entire area is droppable, so for that we're
-// making the same height  while on over or not.
-
+    // The last droppable area have issues if the height is not the same while hovering.
+    // ending up in an issue that not the entire area is droppable, so for that we're
+    // making the same height  while on over or not.
     &:last{
         height:100px;
     }
@@ -322,6 +321,14 @@ a.MenuTab, a.step
         font-weight:bold;
         height: 30px;  
     }
+}
+
+#editor-canvas table.container table.row.drop-here{
+    display:none;
+} 
+
+#editor-canvas.dragging table.container table.row.drop-here{
+    display:block;
 }
 
 

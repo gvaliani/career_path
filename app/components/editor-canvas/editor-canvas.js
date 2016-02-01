@@ -5,7 +5,7 @@ function editorCanvasDirective(angular, app) {
 
 	app.directive('editorCanvas', editorCanvasDirective);
 
-	editorCanvasDirective.$inject = ['$log', '_','$compile', '$timeout','$window', 'constants'];
+	editorCanvasDirective.$inject = ['$log', '_','$compile', '$timeout','$window', 'constants','values'];
 
 	/**
 	* @name app.directive: editorCanvas
@@ -17,19 +17,27 @@ function editorCanvasDirective(angular, app) {
 	<editor-canvas>
 	</editor-canvas>
 	 */
-	function editorCanvasDirective($log, _,compile, timeout, $window, constants){
+	function editorCanvasDirective($log, _,compile, timeout, $window, constants, values){
 
 		return {
 			restrict:'E',
 			link: link,
+			template: '<div id="editor-canvas" data-ng-class="{dragging : !!dragging}" data-ng-transclude="true"></div>',
+			transclude:true,
+			replace:true,
 			scope: {
 				'getMessage':'&',
-				'onContentDropped':'&'
+				'onContentDropped':'&',
+				'droppedHtml':'='
 			}
 		};
 
 
 		function link(scope, element, attributes, ctrl){
+
+			console.log('asdfasfda',scope.droppedHtml);
+
+			scope.dragging = false;
 
 			var didScroll = false,
 				sortableArea,
@@ -64,18 +72,28 @@ function editorCanvasDirective(angular, app) {
         	 * where contenblocks can be dropped
         	 */
         	function setupDroppableArea(){
+
 		        // make the body of the mail able to receive draggable elements
     		    element.find('.' + constants.canvasClass).sortable({
     		        axis: 'y',
 			        cursor: 'url("/images/closedhand.cur"), default',
 			        items: 'tr > td > .row.' + constants.contentBlockClass,
-			        handle: '.drag',
+			        //handle: '.drag',
 			        containment: '#layoutContainer',
 			        revert: false,
 			        refreshPositions: true,
-			        start: onDropStart,
-			        stop: onDropStop,
-			        update: onDropUpdate
+			        start:  function dropStartWrapper(e, ui){
+			        	scope.$apply(_.bind(onDropStart, this, e, ui));
+			        },
+			        stop: function dropStopWrapper(e, ui){
+			        	scope.$apply(_.bind(onDropStop, this, e, ui));
+			        },
+			        update: function dropUpdateWrapper(e, ui){
+			        	scope.$apply(_.bind(onDropUpdate, this, e, ui));
+			        },
+			        out: function dropOutWrapper(e, ui){
+			        	scope.$apply(_.bind(onDropOut, this, e, ui));
+			        }
 				});
         	}
 
@@ -84,25 +102,22 @@ function editorCanvasDirective(angular, app) {
 		     * @param  {String} response - Html of the message
 		     */
 			function onGetMessage(response){
-				console.log('onGetMessage');
-				var layoutHtml = compile(response)(scope);
-				element.append(layoutHtml);
-        		element.find('.' + constants.canvasClass + '> tbody > tr > td').prepend(dropHereTemplate.clone());
+				var layoutHtml = compile(response)(scope),
+        			dropHere = dropHereTemplate.clone();
+
+        		element.append(layoutHtml);
+        		element.find('.' + constants.canvasClass + '> tbody > tr > td').prepend(dropHere);
+        		dropHere.droppable(values.droppableOptions);
+
 			}
 
 			function onDropStart(e, ui){
+				scope.dragging = true;
 				sortableArea = sortableArea || element.find('.ui-sortable');
 
             	// disable overlays
 	            // scope.disableOverlays = true;
 	            // element.addClass('hideOverlays');
-
-	            if (!sortableArea.find('.ui-droppable').length) {
-	                sortableArea.find('.drop-here').droppable({
-	                    tolerance: 'touch',
-	                    hoverClass: 'active'
-	                });
-	            }
 
 	            // if (!ui.item.hasClass(configuration.droppableContentBlockClass)) {
 	            //     // if sortable starts with a content block
@@ -114,67 +129,75 @@ function editorCanvasDirective(angular, app) {
 			}
 
 			function onDropStop(e, ui){
-				console.log('stop');
-
 				// rootScope.safeApply(function () {
 				// scope.disableOverlays = false;
 				// });
 
-				// $('.ui-sortable > tr.dragging').remove();
-				// $('.ui-sortable > tr.emptyBlock').remove();
 				// element.removeClass('hideOverlays');
 			}
 
 			function onDropUpdate(e, ui) {
+				console.log('update');
 
-	            // // this event is triggered in two occasions,
-	            // // 1) when we sort the content blocks inside the editor (prevent to pub the changed event -this is done on the drop stop event-)
-	            // // 2) when we drop a layout content block
-	            // if (ui.item.hasClass(configuration.droppableContentBlockClass)) {
-	            //     //drag of a new content block
-	            //     if (scope.droppedContent.indexOf('data-no-duplicate=') > 0) {
-	            //         var noDuplicateType = $(scope.droppedContent).attr("data-no-duplicate");
+	            // this event is triggered in two occasions,
+	            // 1) when we sort the content blocks inside the editor (prevent to pub the changed event -this is done on the drop stop event-)
+	            // 2) when we drop a layout content block
+	            if (ui.item.hasClass(constants.droppableContentBlockClass)) {
+	                //drag of a new content block
+	                // if (scope.droppedContent.indexOf('data-no-duplicate=') > 0) {
+	                //     var noDuplicateType = $(scope.droppedContent).attr("data-no-duplicate");
 
-	            //         if ($('.' + configuration.canvasClass + ' tr[data-no-duplicate="' + noDuplicateType + '"]').length > 0) {
-	            //             ui.item.remove();
-	            //             scope.validationErrors = 'Only one ' + noDuplicateType.toUpperCase() + ' content block is allowed per email.';
-	            //             scope.showValidationMessage = true;
-	            //             scope.finishRejectedDrop();
-	            //             return;
-	            //         }
-	            //     }
+	                //     if ($('.' + configuration.canvasClass + ' tr[data-no-duplicate="' + noDuplicateType + '"]').length > 0) {
+	                //         ui.item.remove();
+	                //         scope.validationErrors = 'Only one ' + noDuplicateType.toUpperCase() + ' content block is allowed per email.';
+	                //         scope.showValidationMessage = true;
+	                //         scope.finishRejectedDrop();
+	                //         return;
+	                //     }
+	                // }
 
-	            //     if (scope.droppedContent.indexOf('data-reservation') > 0 && !configuration.hasReservationLink) {
-	            //         ui.item.remove();
-	            //         scope.validationErrors = "<p>Oops, currently you don't have any Reservation Links set up for your store locations.  Be sure to update the Reservation Links for each of your stores on the Webpage Links page.</p><p style='margin-top:15px;'>Click <a style='text-decoration:underline;' href='SocialMedia.aspx?sk=" + queryString["sk"] + "'>here</a> to go to Webpage Links.</p>";
-	            //         scope.showValidationMessage = true;
-	            //         scope.finishRejectedDrop();
-	            //         return;
-	            //     }
+	                // if (scope.droppedContent.indexOf('data-reservation') > 0 && !configuration.hasReservationLink) {
+	                //     ui.item.remove();
+	                //     scope.validationErrors = "<p>Oops, currently you don't have any Reservation Links set up for your store locations.  Be sure to update the Reservation Links for each of your stores on the Webpage Links page.</p><p style='margin-top:15px;'>Click <a style='text-decoration:underline;' href='SocialMedia.aspx?sk=" + queryString["sk"] + "'>here</a> to go to Webpage Links.</p>";
+	                //     scope.showValidationMessage = true;
+	                //     scope.finishRejectedDrop();
+	                //     return;
+	                // }
 
-	            //     //create the content block
-	            //     var cb = scope.compileContentBlock(scope.droppedContent);
-	            //     ui.item.remove();
-	            //     $(lastDroppable).replaceWith(cb);
+	                //create the content block
+	                var cb = compileContentBlock(ui.item.attr('dropped-html'));
+	                ui.item.replaceWith(cb);
 
-	            //     //notify subscribers                                  
-	            //     scope.contentChanged(configuration.contentBlockEvents.Created, scope.$id, cb.data('id'), null,
-	            //     {
-	            //         position: element.find('.' + configuration.contentBlockClass).index(cb),
-	            //         value: $.fn.outerHTML(cb)
-	            //     });
-	            // } else {
-	            //     // sort
-	            //     $(lastDroppable).replaceWith(ui.item);
+	                // //notify subscribers                                  
+	                // scope.contentChanged(configuration.contentBlockEvents.Created, scope.$id, cb.data('id'), null,
+	                // {
+	                //     position: element.find('.' + configuration.contentBlockClass).index(cb),
+	                //     value: $.fn.outerHTML(cb)
+	                // });
+	            } else {
+	                // sort
+	                // $(lastDroppable).replaceWith(ui.item);
 
-	            //     scope.contentChanged(configuration.contentBlockEvents.Reordered, scope.$id, ui.item.data('id'), scope.dragStartPosition,
-	            //     {
-	            //         position: element.find('.' + configuration.contentBlockClass).index(ui.item),
-	            //         value: $.fn.outerHTML(ui.item)
-	            //     });
-	            // }
+	                // scope.contentChanged(configuration.contentBlockEvents.Reordered, scope.$id, ui.item.data('id'), scope.dragStartPosition,
+	                // {
+	                //     position: element.find('.' + configuration.contentBlockClass).index(ui.item),
+	                //     value: $.fn.outerHTML(ui.item)
+	                // });
+	            }
         	}
 
+        	/**
+        	 * @param  {[type]}
+        	 * @param  {[type]}
+        	 * @return {[type]}
+        	 */
+        	function onDropOut(e, ui){
+        		scope.dragging = false;
+        	}
+
+        	/**
+        	 * @return {[type]}
+        	 */
 		    function onScrollEmitEvent() {
 		        if (!didScroll) {
 
@@ -189,6 +212,9 @@ function editorCanvasDirective(angular, app) {
 		        didScroll = true;
 		    }
 
+		    /**
+		     * @return {[type]}
+		     */
 		    function update() {
 
 		        if (didScroll) {
@@ -197,6 +223,21 @@ function editorCanvasDirective(angular, app) {
 		            // contextual editors subscribed to the event can do what they want to
 		            editorEvents.canvasScrolling();
 		        }
+		    }
+
+	        
+		    /**
+		     * @description compiles the html of a content block to a content block directive
+		     * @param  {[type]}
+		     * @param  {[type]}
+		     * @return {[type]}
+		     */
+		    function compileContentBlock(contentBlock, attrs) {
+		        attrs = attrs || {};
+		        var contentBlockElement = $(contentBlock);
+		        //contentBlockElement.addClass(constants.contentBlockClass).attr(attrs);
+
+		        return compile(contentBlockElement)(scope);
 		    }
 
 

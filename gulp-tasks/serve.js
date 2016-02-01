@@ -146,7 +146,7 @@ function serve(gulp, $){
                 fs.readFile(bowerFolder + '/app/test/get-content-blocks.json', 'utf8', function (err, data) {
                   if (err) throw err;
                   data = JSON.parse(data);
-                  data[data.length-1].html.replace('##content##', contentHtml);
+                  data[data.length-1].html = data[data.length-1].html.replace('##content##', contentHtml);
                   response.end(JSON.stringify(data), 'utf-8');
                 });
             }
@@ -199,7 +199,7 @@ function serve(gulp, $){
 
 	    gulp.watch(['app/index.html'], ['html:serve', reload]);
 	    gulp.watch(['app/components/**/*.html'], ['scripts', reload]);
-	    gulp.watch(['app/{styles, components}/**/*.less', 'app/routes/**/*.less'], ['styles', reload]);
+	    gulp.watch(['app/{styles, components}/**/*.less', 'app/routes/**/*.less','app/styles/*.less'], ['styles', reload]);
 	    gulp.watch([$.paths.js.app], ['scripts', reload]);
 	    gulp.watch(['app/routes/**/*.html'], ['styles', reload]);
 

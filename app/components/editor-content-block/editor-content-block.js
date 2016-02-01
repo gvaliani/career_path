@@ -5,7 +5,7 @@ function editorContentBlockDirective(angular, app) {
 
 	app.directive('editorContentBlock', editorContentBlockDirective);
 
-	editorContentBlockDirective.$inject = ['$log', '_','$compile','constants'];
+	editorContentBlockDirective.$inject = ['$log', '_','$compile','constants','values'];
 
 	/**
 	* @name app.directive: editorContentBlock
@@ -17,7 +17,7 @@ function editorContentBlockDirective(angular, app) {
 	<table class="editor-content-block">
 	</table>
 	 */
-	function editorContentBlockDirective($log, _,compile, constants){
+	function editorContentBlockDirective($log, _,compile, constants,values){
 
 		return {
 			restrict:'C',
@@ -27,7 +27,10 @@ function editorContentBlockDirective(angular, app) {
 
 		function link(scope, element, attributes, ctrl){
 			// insert "drop-here" legend after each element
-			$('#viewTemplates .drop-here').clone().insertAfter(element);
+			var dropHere = compile($('#viewTemplates .drop-here').clone())(scope);
+			dropHere.insertAfter(element);
+
+            dropHere.droppable(values.droppableOptions);
 
 			element = $(element);
 		}

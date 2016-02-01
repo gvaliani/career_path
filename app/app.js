@@ -4,7 +4,7 @@
     var constants = $('#constants').data(),
     	values = $('#values').data(),
 		app = angular
-        .module('email-editor', ['ui.router','ngSanitize'])
+        .module('email-editor', ['ui.router'])
         .config([
         	'$stateProvider',
         	'$urlRouterProvider',

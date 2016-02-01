@@ -9,7 +9,11 @@ function values(angular, app, options, _){
         couponCodeLabelText: '',
         hasReservationLink: '',
         hasWebpageLinks: '',
-        showNewEditorTour: ''
+        showNewEditorTour: '',
+        droppableOptions: {
+            tolerance: 'touch',
+            hoverClass: 'active'
+        }
     };
 
     _.extend(defaultValues, options);

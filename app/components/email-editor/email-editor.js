@@ -73,6 +73,7 @@ function emailEditorDirective(angular, app) {
 			}
 
 			function getMessage(){
+				// TODO: Check if we are trying to edit an email, or creating a new one.
 				return messageService.get();
 			}
 		}
