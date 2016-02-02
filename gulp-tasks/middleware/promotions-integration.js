@@ -1,7 +1,7 @@
 function promotionsIntegration(querystring, fs, path){
 
   var http = require("https"),
-      bowerFolder = path.resolve(__dirname, "../");
+      bowerFolder = path.resolve(__dirname, "../../");
 
 
   function promotionsApi(request, response){
