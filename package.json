@@ -17,6 +17,7 @@
     "browserify-shim": "^3.8.11",
     "connect-history-api-fallback": "^1.1.0",
     "event-stream": "^3.3.2",
+    "express": "^4.13.4",
     "globby": "^3.0.1",
     "gulp": "^3.9.0",
     "gulp-add-src": "^0.2.0",
