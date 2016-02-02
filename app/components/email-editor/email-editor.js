@@ -7,9 +7,6 @@ function emailEditorDirective(angular, app) {
 	require('./../../services/content-block.js')(angular, app);
 	require('./../../services/message-service.js')(angular, app);
 
-	//helpers
-	require('./../../helpers/unsafe-filter.js')(angular, app);
-
 	// directives
 	require('./../droppable-content-block/droppable-content-block.js')(angular, app);
 	require('./../editor-content-block/editor-content-block.js')(angular, app);
