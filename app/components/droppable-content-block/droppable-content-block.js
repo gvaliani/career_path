@@ -22,7 +22,7 @@ function droppableContentBlockDirective(angular, app) {
 		return {
 			restrict:'C',
 			link: link,
-			template: '<td><img data-ng-src="{{block.thumbnailUrl}}" alt="{{block.name}}" class="img-polaroid"/><td>',
+			template: '<td data-dropped-html="{{::block.html}}"><img data-ng-src="{{block.thumbnailUrl}}" alt="{{block.name}}" class="img-polaroid"/><td>',
 			controllerAs: 'editorCtrl',
 			bindToController: true,
 			controller: droppableContentBlockController
@@ -32,12 +32,12 @@ function droppableContentBlockDirective(angular, app) {
 		function link(scope, element, attributes, ctrl){
 
 			var draggableHelper = $('#viewTemplates').find('img.droppableContentBlockDrag').clone();
-            attributes.$set('dropped-html', scope.block.html);
 
             element.draggable({
                 helper: 'clone',
                 connectToSortable: '.' + constants.canvasClass,
                 revert: 'invalid',
+                appendTo: 'body',
                 start: function(evt, ui) {
                     //drag and drop helper (the contentblock img with the icon on topright)
                     $(ui.helper)

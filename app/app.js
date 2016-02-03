@@ -35,7 +35,7 @@
                 ]);
 
 
-				$urlRouterProvider.otherwise('/home');
+				$urlRouterProvider.otherwise('/alternative');
 
 				$stateProvider
 					.state('home', getStateConfig('/home', 'home.template.html', 'homeCtrl', 'home'))

@@ -1,3 +1,7 @@
+#email-editor > .container-fluid{
+	padding:0;
+}
+
 #email-editor{
 
 	.navbar{
@@ -34,7 +38,8 @@
 		    position: absolute;
 		    top: 0;
 		    bottom: 0;
-		    overflow: scroll;
+		    overflow-y: scroll;
+		    overflow-x: hidden;
 
 		    img{
 		    	max-width:100%;
@@ -45,9 +50,56 @@
 	#content{
 		top:50px;
 		padding-top:20px;
+
+
+		.droppable-content-block + .drop-here{
+		    border:2px dashed #7ae17a;
+		    height: 100px;        
+		}
+
+
+		.drop-here{
+		    
+		    &.active{
+		        border:2px dashed #7ae17a;
+		        height: 100px;    
+		    }
+
+		    // The last droppable area have issues if the height is not the same while hovering.
+		    // ending up in an issue that not the entire area is droppable, so for that we're
+		    // making the same height  while on over or not.
+		    &:last{
+		        height:100px;
+		    }
+
+		    p{
+		        position:relative; 
+		        left:10px; 
+		        top:-25px;
+		    }
+
+		    div{    
+		        position:relative;
+		        left:-60px;
+		        color:white; 
+		        font-weight:bold;
+		        height: 30px;  
+		    }
+		}
+
+		#editor-canvas table.container table.row.drop-here{
+		    display:none;
+		} 
+
+		#editor-canvas.dragging table.container table.row.drop-here{
+		    display:block;
+		}
+
 	}
 
 }
+
+
 
 
 

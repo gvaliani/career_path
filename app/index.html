@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/styles/base.css">
 </head>
 <body data-ng-app="email-editor">
-
+    <div class="container-fluid">
     <!-- Main content -->
     <div id="constants"
         data-session-key="new session key"
@@ -27,8 +27,9 @@
         data-has-reservation-link="false"
         data-has-webpage-links="false"
     ></div>
-    <div ui-view></div>
-
+    <div ui-view></div>        
+    </div>
+ 
 	<script type="text/javascript" src="lib.js"></script>
 	<script type="text/javascript" src="app.bundle.js"></script>
 </body>

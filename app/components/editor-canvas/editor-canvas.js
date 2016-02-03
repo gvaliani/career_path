@@ -27,15 +27,12 @@ function editorCanvasDirective(angular, app) {
 			replace:true,
 			scope: {
 				'getMessage':'&',
-				'onContentDropped':'&',
-				'droppedHtml':'='
+				'onContentDropped':'&'
 			}
 		};
 
 
 		function link(scope, element, attributes, ctrl){
-
-			console.log('asdfasfda',scope.droppedHtml);
 
 			scope.dragging = false;
 
@@ -165,7 +162,7 @@ function editorCanvasDirective(angular, app) {
 	                // }
 
 	                //create the content block
-	                var cb = compileContentBlock(ui.item.attr('dropped-html'));
+	                var cb = compileContentBlock(ui.item.find('>td').data('droppedHtml'));
 	                ui.item.replaceWith(cb);
 
 	                // //notify subscribers                                  
