@@ -21,7 +21,7 @@ function serve(gulp, $){
 
 	    gulp.watch(['app/index.html'], ['html:serve', reload]);
 	    gulp.watch(['app/components/**/*.html'], ['scripts', reload]);
-	    gulp.watch(['app/{styles, components}/**/*.less', 'app/routes/**/*.less','app/styles/*.less'], ['styles', reload]);
+	    gulp.watch(['app/styles/**/*.less','app/components/**/*.less', 'app/routes/**/*.less','app/styles/*.less'], ['styles', reload]);
 	    gulp.watch([$.paths.js.app], ['scripts', reload]);
 	    gulp.watch(['app/routes/**/*.html'], ['styles', reload]);
 

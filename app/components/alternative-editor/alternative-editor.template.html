@@ -1,0 +1,41 @@
+
+<link rel="stylesheet" href="/components/alternative-editor/alternative-editor.css">
+<link rel="stylesheet" href="/styles/jquery-ui-1.10.3.custom.css">
+
+<div id="email-editor">
+    <nav class="navbar navbar-fixed-top">
+        <div class="container-fluid">
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Undo</a></li>
+                <li><a href="#">Redo</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left side bar -->
+            <div class="col-xs-12 col-md-3" id="design-options">
+                <div class="row">
+                    <div class="col-xs-12 col-md-3" id="design-menu">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-offset-3 col-md-9" id="layout-content-blocks">
+                        <div class="droppable-content-block ui-helper-clearfix" data-ng-repeat="block in editorCtrl.contentBlocks"></div>
+                    </div>
+                </div>  
+            </div>
+            <!-- end side bar-->
+            <!-- content -->
+            <div class="col-xs-12 col-md-offset-3 col-md-9" id="content">
+                <editor-canvas data-get-message="editorCtrl.getMessage()" class="content">
+                </editor-canvas>
+            </div>
+            <!--end content-->
+        </div>
+    </div>
+    
+</div>
