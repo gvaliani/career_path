@@ -12,7 +12,7 @@ function editorContentBlockDirective(angular, app) {
 	*
 	* @description
 	*  block of content with editor associated
-	* 
+	*
 	* @example
 	<table class="editor-content-block">
 	</table>
@@ -26,13 +26,16 @@ function editorContentBlockDirective(angular, app) {
 
 
 		function link(scope, element, attributes, ctrl){
+			element = $(element);
+
 			// insert "drop-here" legend after each element
 			var dropHere = compile($('#viewTemplates .drop-here').clone())(scope);
 			dropHere.insertAfter(element);
+			dropHere.droppable(values.droppableOptions);
 
-            dropHere.droppable(values.droppableOptions);
-
-			element = $(element);
+			var hoverMenuBar = compile($('#viewTemplates .content-block-menu-bar').clone())(scope);
+			console.log(hoverMenuBar);
+			dropHere.insertAfter(element);
 		}
 	}
 }

@@ -18,11 +18,10 @@ function constants(angular, app, options, _){
         contentBlockClass: 'editor-content-block',
         contentBlockDefaultValue: 'editor-default-value',
         droppableContentBlockClass: 'droppable-content-block',
-
         editorHtmlContainerId: 'editorCanvas',
         overlayClass: 'ui-widget-overlay',
         imageEditorModal: 'imageEditorModal',
-        overlayMenuBarClass: 'contentBlockHoverMenuBar',
+        overlayMenuBarClass: 'content-block-menu-bar',
         multiColumnClass: 'multiColumn',
 		onEditorContentChangeMessage: 'OnEditorContentChange',
 		storageEditorContentKey: 'EditorContent',
