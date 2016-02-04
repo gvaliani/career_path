@@ -75,11 +75,12 @@ function editorCanvasDirective(angular, app) {
     		        axis: 'y',
 			        cursor: 'url("/images/closedhand.cur"), default',
 			        items: 'tr > td > .row.' + constants.contentBlockClass,
-			        //handle: '.drag',
+			        handle: '.drag',
 			        containment: '#layoutContainer',
 			        revert: false,
 			        refreshPositions: true,
 			        start:  function dropStartWrapper(e, ui){
+			        	element.addClass('dragging');
 			        	scope.$apply(_.bind(onDropStart, this, e, ui));
 			        },
 			        stop: function dropStopWrapper(e, ui){
@@ -90,7 +91,10 @@ function editorCanvasDirective(angular, app) {
 			        },
 			        out: function dropOutWrapper(e, ui){
 			        	scope.$apply(_.bind(onDropOut, this, e, ui));
-			        }
+			        },
+			        over:function dropOutWrapper(e, ui){
+			        	scope.$apply(_.bind(onDropOver, this, e, ui));
+			        } 
 				});
         	}
 
@@ -109,7 +113,7 @@ function editorCanvasDirective(angular, app) {
 			}
 
 			function onDropStart(e, ui){
-				scope.dragging = true;
+				console.log('start');
 				sortableArea = sortableArea || element.find('.ui-sortable');
 
             	// disable overlays
@@ -126,6 +130,7 @@ function editorCanvasDirective(angular, app) {
 			}
 
 			function onDropStop(e, ui){
+				console.log('stop');
 				// rootScope.safeApply(function () {
 				// scope.disableOverlays = false;
 				// });
@@ -162,7 +167,7 @@ function editorCanvasDirective(angular, app) {
 	                // }
 
 	                //create the content block
-	                var cb = compileContentBlock(ui.item.find('>td').data('droppedHtml'));
+	                var cb = compileContentBlock(ui.item.find('> div').data('droppedHtml'));
 	                ui.item.replaceWith(cb);
 
 	                // //notify subscribers                                  
@@ -189,7 +194,20 @@ function editorCanvasDirective(angular, app) {
         	 * @return {[type]}
         	 */
         	function onDropOut(e, ui){
-        		scope.dragging = false;
+				console.log('out');
+				element.removeClass('dragging');
+        		//scope.dragging = false;
+        	}
+
+        	/**
+        	 * [onDropOver description]
+        	 * @param  {[type]} e  [description]
+        	 * @param  {[type]} ui [description]
+        	 * @return {[type]}    [description]
+        	 */
+        	function onDropOver(e, ui){
+				console.log('over');
+        		//scope.dragging = true;
         	}
 
         	/**

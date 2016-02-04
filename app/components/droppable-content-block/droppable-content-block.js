@@ -22,7 +22,7 @@ function droppableContentBlockDirective(angular, app) {
 		return {
 			restrict:'C',
 			link: link,
-			template: '<td data-dropped-html="{{::block.html}}"><img data-ng-src="{{block.thumbnailUrl}}" alt="{{block.name}}" class="img-polaroid"/><td>',
+			template: '<div data-dropped-html="{{::block.html}}"><img data-ng-src="{{block.thumbnailUrl}}" alt="{{block.name}}" class="img-polaroid"/></div>',
 			controllerAs: 'editorCtrl',
 			bindToController: true,
 			controller: droppableContentBlockController
