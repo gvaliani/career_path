@@ -34,8 +34,17 @@ function editorContentBlockDirective(angular, app) {
 			dropHere.droppable(values.droppableOptions);
 
 			var hoverMenuBar = compile($('#viewTemplates .content-block-menu-bar').clone())(scope);
-			console.log(hoverMenuBar);
-			dropHere.insertAfter(element);
+			hoverMenuBar.insertBefore(element);
+
+			element.hover(
+				function onCbMouseEnter() {
+					hoverMenuBar.show();
+					hoverMenuBar.position({ my: 'center bottom', at: 'center top', of: element });
+				},
+				function onCbMouseLeave() {
+					hoverMenuBar.hide();
+				}
+			);
 		}
 	}
 }

@@ -12,7 +12,7 @@ function editorCanvasDirective(angular, app) {
 	*
 	* @description
 	*  Drag and drop email editor
-	* 
+	*
 	* @example
 	<editor-canvas>
 	</editor-canvas>
@@ -65,33 +65,33 @@ function editorCanvasDirective(angular, app) {
 
         	/**
         	 * @name setupDroppableArea
-        	 * @description Setups editor canvas as a jQuery sortable area 
+        	 * @description Setups editor canvas as a jQuery sortable area
         	 * where contenblocks can be dropped
         	 */
         	function setupDroppableArea(){
 
 		        // make the body of the mail able to receive draggable elements
     		    element.find('.' + constants.canvasClass).sortable({
-    		        axis: 'y',
-			        cursor: 'url("/images/closedhand.cur"), default',
-			        items: 'tr > td > .row.' + constants.contentBlockClass,
-			        //handle: '.drag',
-			        containment: '#layoutContainer',
-			        revert: false,
-			        refreshPositions: true,
-			        start:  function dropStartWrapper(e, ui){
-			        	scope.$apply(_.bind(onDropStart, this, e, ui));
-			        },
-			        stop: function dropStopWrapper(e, ui){
-			        	scope.$apply(_.bind(onDropStop, this, e, ui));
-			        },
-			        update: function dropUpdateWrapper(e, ui){
-			        	scope.$apply(_.bind(onDropUpdate, this, e, ui));
-			        },
-			        out: function dropOutWrapper(e, ui){
-			        	scope.$apply(_.bind(onDropOut, this, e, ui));
-			        }
-				});
+							axis: 'y',
+							cursor: 'url("/images/closedhand.cur"), default',
+							items: 'tr > td > .row.' + constants.contentBlockClass,
+							handle: '.drag',
+							containment: '#layoutContainer',
+							revert: false,
+							refreshPositions: true,
+							start:  function dropStartWrapper(e, ui){
+								scope.$apply(_.bind(onDropStart, this, e, ui));
+							},
+							stop: function dropStopWrapper(e, ui){
+								scope.$apply(_.bind(onDropStop, this, e, ui));
+							},
+							update: function dropUpdateWrapper(e, ui){
+								scope.$apply(_.bind(onDropUpdate, this, e, ui));
+							},
+							out: function dropOutWrapper(e, ui){
+								scope.$apply(_.bind(onDropOut, this, e, ui));
+							}
+						});
         	}
 
 		    /**
@@ -165,7 +165,7 @@ function editorCanvasDirective(angular, app) {
 	                var cb = compileContentBlock(ui.item.find('>td').data('droppedHtml'));
 	                ui.item.replaceWith(cb);
 
-	                // //notify subscribers                                  
+	                // //notify subscribers
 	                // scope.contentChanged(configuration.contentBlockEvents.Created, scope.$id, cb.data('id'), null,
 	                // {
 	                //     position: element.find('.' + configuration.contentBlockClass).index(cb),
@@ -222,7 +222,7 @@ function editorCanvasDirective(angular, app) {
 		        }
 		    }
 
-	        
+
 		    /**
 		     * @description compiles the html of a content block to a content block directive
 		     * @param  {[type]}
