@@ -14,7 +14,7 @@
 	}
 
 	#design-options{
-		
+
 		position: fixed;
 	    top: 50px;
 	    bottom: 0;
@@ -60,15 +60,15 @@
 
 		.droppable-content-block + .drop-here{
 		    border:2px dashed #7ae17a;
-		    height: 100px;        
+		    height: 100px;
 		}
 
 
 		.drop-here{
-		    
+
 		    &.active{
 		        border:2px dashed #7ae17a;
-		        height: 100px;    
+		        height: 100px;
 		    }
 
 		    // The last droppable area have issues if the height is not the same while hovering.
@@ -79,23 +79,23 @@
 		    }
 
 		    p{
-		        position:relative; 
-		        left:10px; 
+		        position:relative;
+		        left:10px;
 		        top:-25px;
 		    }
 
-		    div{    
+		    div{
 		        position:relative;
 		        left:-60px;
-		        color:white; 
+		        color:white;
 		        font-weight:bold;
-		        height: 30px;  
+		        height: 30px;
 		    }
 		}
 
 		#editor-canvas table.container table.row.drop-here{
 		    display:none;
-		} 
+		}
 
 		#editor-canvas.dragging table.container table.row.drop-here{
 		    display:block;
@@ -103,9 +103,36 @@
 
 	}
 
+	.content-block-menu-bar {
+		position: absolute;
+		display: none;
+		padding: 10px;
+    background-color:#484848;
+    border:1px white solid;
+    text-align:center;
+    width:200px;
+		z-index: 100;
+
+		a {
+			color: #fff;
+
+			&:hover {
+				color: #fff!important;
+			}
+		}
+
+		.btn-inverse {
+			color: #fff;
+			background-color: #363636;
+			background-repeat: repeat-x;
+			background-image: linear-gradient(to bottom, #444444, #222222);
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+			&:hover, &:focus, &:active, &:disabled {
+				color: #fff;
+				background-color: #222222;
+			}
+		}
+	}
+
 }
-
-
-
-
-

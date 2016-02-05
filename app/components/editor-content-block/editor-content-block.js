@@ -29,24 +29,40 @@ function editorContentBlockDirective(angular, app) {
 		function link(scope, element, attributes, ctrl){			
 
 			function init(){
+
 				element = $(element);
 				element.attr('data-id', scope.$id);
 
 				if(element.parents('.' + constants.canvasClass).length){
-					setupDropHere();
+					setupContentBlockElements();
 				}
 				else{
-					element.one('replacedElement', setupDropHere);
+					element.one('replacedElement', setupContentBlockElements);
 				}
-				var hoverMenuBar = compile($('#viewTemplates .content-block-menu-bar').clone())(scope);
+
 			}
 
-			function setupDropHere(){
+			function setupContentBlockElements(){
+				
 				// insert "drop-here" legend after each element
 				var dropHere = compile($('#viewTemplates .drop-here').clone())(scope);
 				dropHere.insertAfter(element);
 				dropHere.attr('data-content-block', scope.$id);
 				dropHere.droppable(values.droppableOptions);
+
+
+				var hoverMenuBar = compile($('#viewTemplates .content-block-menu-bar').clone())(scope);
+				hoverMenuBar.insertBefore(element);
+
+				element.hover(
+					function onCbMouseEnter() {
+						hoverMenuBar.show();
+						hoverMenuBar.position({ my: 'center bottom', at: 'center top', of: element });
+					},
+					function onCbMouseLeave() {
+						hoverMenuBar.hide();
+					}
+				);
 			}
 
 			init();

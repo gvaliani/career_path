@@ -21,7 +21,7 @@ function alternativeEditorDirective(angular, app) {
 	*
 	* @description
 	*  Drag and drop email editor
-	* 
+	*
 	* @example
 	<fb-email-editor data-config="home.modalLoginConfig">
 	</fb-email-editor>
@@ -43,7 +43,7 @@ function alternativeEditorDirective(angular, app) {
 
 		alternativeEditorController.$inject = ['$scope'];
 		function alternativeEditorController($scope){
-			
+
 			var self = this, //jshint ignore:line
 				autosaveInitialized = false,
 				undoEnabled = false,

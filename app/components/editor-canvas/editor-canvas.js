@@ -12,7 +12,7 @@ function editorCanvasDirective(angular, app) {
 	*
 	* @description
 	*  Drag and drop email editor
-	* 
+	*
 	* @example
 	<editor-canvas>
 	</editor-canvas>
@@ -65,14 +65,14 @@ function editorCanvasDirective(angular, app) {
 
         	/**
         	 * @name setupDroppableArea
-        	 * @description Setups editor canvas as a jQuery sortable area 
+        	 * @description Setups editor canvas as a jQuery sortable area
         	 * where contenblocks can be dropped
         	 */
         	function setupDroppableArea(){
 
 		        // make the body of the mail able to receive draggable elements
     		    element.find('.' + constants.canvasClass).sortable({
-    		        axis: 'y',
+  		        axis: 'y',
 			        cursor: 'url("/images/closedhand.cur"), default',
 			        items: 'tr > td > .row.' + constants.contentBlockClass,
 			        // handle: '.drag',
@@ -83,7 +83,7 @@ function editorCanvasDirective(angular, app) {
 			        start: onDropStart,
 			        stop: onDropStop,
 			        update: onDropUpdate
-				});
+						});
         	}
 
 		    /**
@@ -158,7 +158,7 @@ function editorCanvasDirective(angular, app) {
 	                var cb = compileContentBlock(ui.item.find('> div').data('droppedHtml'));
 	                ui.item.replaceWith(cb);
 
-	                // //notify subscribers                                  
+	                // //notify subscribers
 	                // scope.contentChanged(configuration.contentBlockEvents.Created, scope.$id, cb.data('id'), null,
 	                // {
 	                //     position: element.find('.' + configuration.contentBlockClass).index(cb),
@@ -214,7 +214,7 @@ function editorCanvasDirective(angular, app) {
 		        }
 		    }
 
-	        
+
 		    /**
 		     * @description compiles the html of a content block to a content block directive
 		     * @param  {[type]}
