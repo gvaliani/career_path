@@ -75,7 +75,7 @@ function editorCanvasDirective(angular, app) {
     		        axis: 'y',
 			        cursor: 'url("/images/closedhand.cur"), default',
 			        items: 'tr > td > .row.' + constants.contentBlockClass,
-			        handle: '.drag',
+			        // handle: '.drag',
 			        containment: '#layoutContainer',
 			        revert: false,
 			        refreshPositions: true,
@@ -166,7 +166,15 @@ function editorCanvasDirective(angular, app) {
 	                // });
 	            } else {
 	                // sort
-	                // $(lastDroppable).replaceWith(ui.item);
+
+	                var id = ui.item.data('id');
+	                
+	                if(ui.item.next().hasClass('drop-here')){
+	                	ui.item.next().insertBefore(ui.item);
+	                }
+
+	                var dropHere = element.find('.drop-here[data-content-block='+ id +']');
+	                dropHere.insertAfter(ui.item);
 
 	                // scope.contentChanged(configuration.contentBlockEvents.Reordered, scope.$id, ui.item.data('id'), scope.dragStartPosition,
 	                // {
