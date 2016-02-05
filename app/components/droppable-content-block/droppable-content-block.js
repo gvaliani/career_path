@@ -37,7 +37,7 @@ function droppableContentBlockDirective(angular, app) {
                 helper: 'clone',
                 connectToSortable: '.' + constants.canvasClass,
                 revert: 'invalid',
-                appendTo: 'body',
+                appendTo: '.' + constants.canvasClass,
                 start: function(evt, ui) {
                     //drag and drop helper (the contentblock img with the icon on topright)
                     $(ui.helper)

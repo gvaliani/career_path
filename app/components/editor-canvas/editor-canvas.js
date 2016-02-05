@@ -79,22 +79,10 @@ function editorCanvasDirective(angular, app) {
 			        containment: '#layoutContainer',
 			        revert: false,
 			        refreshPositions: true,
-			        start:  function dropStartWrapper(e, ui){
-			        	element.addClass('dragging');
-			        	scope.$apply(_.bind(onDropStart, this, e, ui));
-			        },
-			        stop: function dropStopWrapper(e, ui){
-			        	scope.$apply(_.bind(onDropStop, this, e, ui));
-			        },
-			        update: function dropUpdateWrapper(e, ui){
-			        	scope.$apply(_.bind(onDropUpdate, this, e, ui));
-			        },
-			        out: function dropOutWrapper(e, ui){
-			        	scope.$apply(_.bind(onDropOut, this, e, ui));
-			        },
-			        over:function dropOutWrapper(e, ui){
-			        	scope.$apply(_.bind(onDropOver, this, e, ui));
-			        } 
+			        tolerance: 'intersect',
+			        start: onDropStart,
+			        stop: onDropStop,
+			        update: onDropUpdate
 				});
         	}
 
@@ -113,7 +101,7 @@ function editorCanvasDirective(angular, app) {
 			}
 
 			function onDropStart(e, ui){
-				console.log('start');
+				element.addClass('dragging');
 				sortableArea = sortableArea || element.find('.ui-sortable');
 
             	// disable overlays
@@ -130,7 +118,8 @@ function editorCanvasDirective(angular, app) {
 			}
 
 			function onDropStop(e, ui){
-				console.log('stop');
+				element.removeClass('dragging');
+
 				// rootScope.safeApply(function () {
 				// scope.disableOverlays = false;
 				// });
@@ -139,8 +128,7 @@ function editorCanvasDirective(angular, app) {
 			}
 
 			function onDropUpdate(e, ui) {
-				console.log('update');
-
+				element.removeClass('dragging');
 	            // this event is triggered in two occasions,
 	            // 1) when we sort the content blocks inside the editor (prevent to pub the changed event -this is done on the drop stop event-)
 	            // 2) when we drop a layout content block
@@ -186,28 +174,6 @@ function editorCanvasDirective(angular, app) {
 	                //     value: $.fn.outerHTML(ui.item)
 	                // });
 	            }
-        	}
-
-        	/**
-        	 * @param  {[type]}
-        	 * @param  {[type]}
-        	 * @return {[type]}
-        	 */
-        	function onDropOut(e, ui){
-				console.log('out');
-				element.removeClass('dragging');
-        		//scope.dragging = false;
-        	}
-
-        	/**
-        	 * [onDropOver description]
-        	 * @param  {[type]} e  [description]
-        	 * @param  {[type]} ui [description]
-        	 * @return {[type]}    [description]
-        	 */
-        	function onDropOver(e, ui){
-				console.log('over');
-        		//scope.dragging = true;
         	}
 
         	/**
