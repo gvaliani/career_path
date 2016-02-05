@@ -1,6 +1,31 @@
 function utilsProvider(angular, app, $){
 
 	'use strict';
+
+    /**
+     * Replacement for jQuery replaceWith method, to trigger a custom element 
+     * @type {Object} - jQuery element
+     * http://stackoverflow.com/questions/7167085/on-append-do-something
+     */
+    var originalReplaceWith = $.fn.replaceWith;
+    $.fn.replaceWith = function () {
+         // Make a list of arguments that are jQuery objects
+        var replacements = $.makeArray(arguments).filter(function(arg){
+            return arg instanceof $;
+        });
+
+         // Call the actual function
+        var returnValue = originalReplaceWith.apply(this, arguments);
+
+        for (var i = 0; i < replacements.length; ++i)
+        {
+            replacements[i].trigger('replacedElement');
+        }
+
+        returnValue.trigger('replaceWith');
+
+        return returnValue;
+    };
 		
     app.factory('utils', [
 		function utilsProvider(){
@@ -20,6 +45,7 @@ function utilsProvider(angular, app, $){
                 var isIE8 = isMSIE && (userAgent.indexOf('MSIE 8') >= 0 || userAgent.indexOf('MSIE 7') >= 0);
                 return isIE8;
             };
+
 
             // TODO: Deprecate
             function preventSubmit(e) {

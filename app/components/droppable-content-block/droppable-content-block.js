@@ -37,11 +37,11 @@ function droppableContentBlockDirective(angular, app) {
                 helper: 'clone',
                 connectToSortable: '.' + constants.canvasClass,
                 revert: 'invalid',
-                appendTo: '.' + constants.canvasClass,
+                appendTo: '.' + constants.canvasClass + ' > tbody > tr > td',
                 start: function(evt, ui) {
                     //drag and drop helper (the contentblock img with the icon on topright)
                     $(ui.helper)
-                    	.css('z-index', 9999)
+                    	.css({'z-index': 9999, 'position':'relative' })
                     	.find('img').css('cursor', 'url("/images/closedhand.cur"), default')
                     	.end()
                     	.append(draggableHelper); //hover image on layout content block
