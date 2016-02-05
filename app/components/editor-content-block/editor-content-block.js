@@ -28,31 +28,34 @@ function editorContentBlockDirective(angular, app) {
 
 		function link(scope, element, attributes, ctrl){
 			element = $(element);
-			console.log(scope.$id);
 
-			// insert "drop-here" legend after each element
-			var dropHere = compile($('#viewTemplates .drop-here').clone())(scope);
-			dropHere.insertAfter(element);
-			dropHere.droppable(values.droppableOptions);
+			function init(){
+				element.on('replacedElement', setupDropHere);
 
-			dropHere.on('drop', function(e, ui){
-				console.log('dropped');
-			});
+				var hoverMenuBar = compile($('#viewTemplates .content-block-menu-bar').clone())(scope);
+				hoverMenuBar.insertBefore(element);
 
-			// insert actions menubar before each element and toggle it on mouseover
-			var hoverMenuBar = compile($('#viewTemplates .content-block-menu-bar').clone())(scope);
-			hoverMenuBar.insertBefore(element);
+				element.hover(
+					function onCbMouseEnter() {
+						hoverMenuBar.show();
+						hoverMenuBar.position({ my: 'center bottom', at: 'center top', of: element });
+					},
+					function onCbMouseLeave() {
+						hoverMenuBar.hide();
+					}
+				);
+			}
 
-			element.hover(
-				function onCbMouseEnter() {
-					hoverMenuBar.show();
-					hoverMenuBar.position({ my: 'center bottom', at: 'center top', of: element });
-				},
-				function onCbMouseLeave() {
-					hoverMenuBar.hide();
-				}
-			);
+			function setupDropHere(){
+				// insert "drop-here" legend after each element
+				var dropHere = compile($('#viewTemplates .drop-here').clone())(scope);
+				dropHere.insertAfter(element);
+				dropHere.data('contentBlock', scope.$id);
+				dropHere.droppable(values.droppableOptions);
+			}
 
+			init();
+		}
 	}
 }
 
