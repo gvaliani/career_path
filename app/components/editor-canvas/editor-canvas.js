@@ -72,25 +72,17 @@ function editorCanvasDirective(angular, app) {
 
 		        // make the body of the mail able to receive draggable elements
     		    element.find('.' + constants.canvasClass).sortable({
-							axis: 'y',
-							cursor: 'url("/images/closedhand.cur"), default',
-							items: 'tr > td > .row.' + constants.contentBlockClass,
-							handle: '.drag',
-							containment: '#layoutContainer',
-							revert: false,
-							refreshPositions: true,
-							start:  function dropStartWrapper(e, ui){
-								scope.$apply(_.bind(onDropStart, this, e, ui));
-							},
-							stop: function dropStopWrapper(e, ui){
-								scope.$apply(_.bind(onDropStop, this, e, ui));
-							},
-							update: function dropUpdateWrapper(e, ui){
-								scope.$apply(_.bind(onDropUpdate, this, e, ui));
-							},
-							out: function dropOutWrapper(e, ui){
-								scope.$apply(_.bind(onDropOut, this, e, ui));
-							}
+  		        axis: 'y',
+			        cursor: 'url("/images/closedhand.cur"), default',
+			        items: 'tr > td > .row.' + constants.contentBlockClass,
+			        handle: '.drag',
+			        containment: '#layoutContainer',
+			        revert: false,
+			        refreshPositions: true,
+			        tolerance: 'intersect',
+			        start: onDropStart,
+			        stop: onDropStop,
+			        update: onDropUpdate
 						});
         	}
 
@@ -109,7 +101,7 @@ function editorCanvasDirective(angular, app) {
 			}
 
 			function onDropStart(e, ui){
-				scope.dragging = true;
+				element.addClass('dragging');
 				sortableArea = sortableArea || element.find('.ui-sortable');
 
             	// disable overlays
@@ -126,6 +118,8 @@ function editorCanvasDirective(angular, app) {
 			}
 
 			function onDropStop(e, ui){
+				element.removeClass('dragging');
+
 				// rootScope.safeApply(function () {
 				// scope.disableOverlays = false;
 				// });
@@ -134,8 +128,7 @@ function editorCanvasDirective(angular, app) {
 			}
 
 			function onDropUpdate(e, ui) {
-				console.log('update');
-
+				element.removeClass('dragging');
 	            // this event is triggered in two occasions,
 	            // 1) when we sort the content blocks inside the editor (prevent to pub the changed event -this is done on the drop stop event-)
 	            // 2) when we drop a layout content block
@@ -162,7 +155,7 @@ function editorCanvasDirective(angular, app) {
 	                // }
 
 	                //create the content block
-	                var cb = compileContentBlock(ui.item.find('>td').data('droppedHtml'));
+	                var cb = compileContentBlock(ui.item.find('> div').data('droppedHtml'));
 	                ui.item.replaceWith(cb);
 
 	                // //notify subscribers
@@ -181,15 +174,6 @@ function editorCanvasDirective(angular, app) {
 	                //     value: $.fn.outerHTML(ui.item)
 	                // });
 	            }
-        	}
-
-        	/**
-        	 * @param  {[type]}
-        	 * @param  {[type]}
-        	 * @return {[type]}
-        	 */
-        	function onDropOut(e, ui){
-        		scope.dragging = false;
         	}
 
         	/**

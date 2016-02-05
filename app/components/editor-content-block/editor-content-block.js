@@ -21,18 +21,25 @@ function editorContentBlockDirective(angular, app) {
 
 		return {
 			restrict:'C',
-			link: link
+			link: link,
+			scope: {}
 		};
 
 
 		function link(scope, element, attributes, ctrl){
 			element = $(element);
+			console.log(scope.$id);
 
 			// insert "drop-here" legend after each element
 			var dropHere = compile($('#viewTemplates .drop-here').clone())(scope);
 			dropHere.insertAfter(element);
 			dropHere.droppable(values.droppableOptions);
 
+			dropHere.on('drop', function(e, ui){
+				console.log('dropped');
+			});
+
+			// insert actions menubar before each element and toggle it on mouseover
 			var hoverMenuBar = compile($('#viewTemplates .content-block-menu-bar').clone())(scope);
 			hoverMenuBar.insertBefore(element);
 
@@ -45,7 +52,7 @@ function editorContentBlockDirective(angular, app) {
 					hoverMenuBar.hide();
 				}
 			);
-		}
+
 	}
 }
 

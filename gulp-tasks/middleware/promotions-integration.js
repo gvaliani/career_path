@@ -128,7 +128,9 @@ function promotionsIntegration(querystring, fs, path){
           });
       }
 
-      getAccessToken(getPromotions);
+      getContentBlocks([]);
+
+      //getAccessToken(getPromotions);
   }
 
   return {
