@@ -1,29 +1,32 @@
-	.editor-content-block:hover > .content-block-menu-bar{
+#email-editor{
+
+	.editor-content-block:hover > .content-block-menu-bar,
+	.editor-content-block:hover .content-block-overlay {
 		display:block;
 	}
 
-	.ui-widget-overlay {
+	.content-block-overlay {
 		position: absolute;
 		display: none;
 		background: #7ae17a none;
 		opacity: 0.3;
 		z-index: 99;
 	}
-	
+
 	.content-block-menu-bar {
 		position: absolute;
 		display: none;
 		padding: 10px;
-	    background-color:#484848;
-	    border:1px white solid;
-	    text-align:center;
-	    width:200px;
+    background-color:#484848;
+    border:1px white solid;
+    text-align:center;
+    width:200px;
 		z-index: 100;
 
 		a {
-			color: #fff;
+			color: #fff!important;
 
-			&:hover {
+			&:hover{
 				color: #fff!important;
 			}
 		}
@@ -41,3 +44,4 @@
 			}
 		}
 	}
+}

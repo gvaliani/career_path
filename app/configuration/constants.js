@@ -19,7 +19,7 @@ function constants(angular, app, options, _){
         contentBlockDefaultValue: 'editor-default-value',
         draggableContentBlockClass: 'draggable-content-block',
         editorHtmlContainerId: 'editorCanvas',
-        overlayClass: 'ui-widget-overlay',
+        overlayClass: 'content-block-overlay',
         imageEditorModal: 'imageEditorModal',
         overlayMenuBarClass: 'content-block-menu-bar',
         multiColumnClass: 'multiColumn',

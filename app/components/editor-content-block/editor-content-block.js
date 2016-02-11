@@ -26,7 +26,7 @@ function editorContentBlockDirective(angular, app) {
 		};
 
 
-		function link(scope, element, attributes, ctrl){			
+		function link(scope, element, attributes, ctrl){
 
 			function init(){
 
@@ -53,19 +53,25 @@ function editorContentBlockDirective(angular, app) {
 			 * @return {[type]} [description]
 			 */
 			function setupContentBlockElements(){
-				
+
 				// insert "drop-here" legend after each element
 				var dropHere = compile($('#viewTemplates .drop-here').clone())(scope);
 				dropHere.insertAfter(element);
 				dropHere.attr('data-content-block', scope.$id);
 				dropHere.droppable(values.droppableOptions);
 
-
-				var hoverMenuBar = compile($('#viewTemplates .content-block-menu-bar').clone())(scope);
+				var hoverMenuBar = compile($('#viewTemplates .' + constants.overlayMenuBarClass).clone())(scope);
 				element.append(hoverMenuBar);
+
+				var overlay = $('#viewTemplates .' + constants.overlayClass).clone();
+				element.append(overlay);
+
 				element.on('mouseover',
 					function onCbMouseEnter() {
 						hoverMenuBar.position({ my: 'center bottom', at: 'center top', of: element });
+
+						overlay.height(element.height()).width(element.width());
+						overlay.position({ my: 'center center', at: 'center center', of: element, collision: 'none', within: element });
 					}
 				);
 			}

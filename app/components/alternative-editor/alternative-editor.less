@@ -1,3 +1,4 @@
+@import '../../styles/mixins/main.less';
 @import './../editor-content-block/editor-content-block';
 
 #email-editor > .container-fluid{
@@ -7,11 +8,15 @@
 #email-editor{
 
 	.navbar{
-		background-color:#e51b24;
+		background-color:@navbar-color;
 		border: none;
 
 		.navbar-nav li a{
 			color:#fff;
+
+			&:hover, &:active, &:focus {
+				background-color: lighten(@navbar-color, 20%);
+			}
 		}
 	}
 
@@ -97,6 +102,8 @@
 
 		    p{
 		        position:relative;
+						color: #fff;
+						font-weight: bold;
 		        left:10px;
 		        top:-25px;
 		    }
