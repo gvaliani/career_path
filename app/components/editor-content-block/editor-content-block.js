@@ -108,15 +108,14 @@ function editorContentBlockDirective(angular, app) {
 			function loadEditors(){
 
 				// regex to parse from camelCase to dash camel-case
-				var rmultiDash = /([a-z])([A-Z])/g;
-
-				// get the different editable areas
-				editableAreas = element.find('[data-editable]');
+				var rmultiDash = /([a-z])([A-Z])/g,
+					// get the different editable areas
+					editableAreas = element.find('[data-editable]');
 
 				// foreach editable area, loads its editors
-				for (var i = 0; i < editableArea.length; i++) {
+				for (var i = 0; i < editableAreas.length; i++) {
 					
-					for(var keys in editableArea[i].data()){
+					for(var keys in $(editableAreas[i]).data()){
 
 						// check for data-editor attributes on editable area
 						if(keys.indexOf('editor') === 0 && !editorsLoaded[keys]){
