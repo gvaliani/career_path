@@ -11,7 +11,7 @@
 		"thumbnailUrl":"/images/contentblocks/imageblockpreview_new.jpg",
 		"description":"Layout ImageBlock",
 		"name":"ImageBlock",
-		"html":"<table class=\"row editor-content-block\"><tr><td align=\"center\" style=\"padding-top: 10px; padding-bottom: 10px;\"><div editable=\"true\" class=\"editor-default-value align\" image-editor=\"true\" style=\"margin:0px auto;float:none;\"><img data-align-enabled=\"true\" width=\"560\" height=\"112\" data-file-width=\"776\" data-file-height=\"156\" data-file-id=\"0\" src=\"/Images/LayoutPreviews/imageblockdefault.jpg\" style=\"max-width:100%;border:none;\" /></div></td></tr></table>"
+		"html":"<table class=\"row editor-content-block\"><tbody><tr><td class=\"wrapper last\"><table class=\"twelve columns\"><tbody><tr style=\"padding-top: 10px; padding-bottom: 10px;\"><td data-editable=\"true\" class=\"editor-default-value\" data-image-editor=\"true\"><img width=\"560\" height=\"112\" data-file-width=\"776\" data-file-height=\"156\" data-file-id=\"0\" src=\"/Images/LayoutPreviews/imageblockdefault.jpg\"></td></tr></tbody></table></td></tr></tbody></table>"
 	},
 	{
 		"id":3,
@@ -79,6 +79,5 @@
 		"html":"<table class=\"row editor-content-block\" data-promotions=\"true\"><tr><td editable=\"true\" align=\"center\"><ul>##content##</ul></td></tr></table>"	
 	}
 ]
-
 
 	

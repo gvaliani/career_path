@@ -17,7 +17,7 @@ function constants(angular, app, options, _){
         canvasClass: 'layout-table',
         contentBlockClass: 'editor-content-block',
         contentBlockDefaultValue: 'editor-default-value',
-        droppableContentBlockClass: 'droppable-content-block',
+        draggableContentBlockClass: 'draggable-content-block',
         editorHtmlContainerId: 'editorCanvas',
         overlayClass: 'ui-widget-overlay',
         imageEditorModal: 'imageEditorModal',

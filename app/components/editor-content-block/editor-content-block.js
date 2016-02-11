@@ -26,32 +26,48 @@ function editorContentBlockDirective(angular, app) {
 		};
 
 
-		function link(scope, element, attributes, ctrl){
-			element = $(element);
+		function link(scope, element, attributes, ctrl){			
 
 			function init(){
-				element.on('replacedElement', setupDropHere);
 
-				var hoverMenuBar = compile($('#viewTemplates .content-block-menu-bar').clone())(scope);
-				hoverMenuBar.insertBefore(element);
+				element = $(element);
+				element.attr('data-id', scope.$id);
 
-				element.hover(
-					function onCbMouseEnter() {
-						hoverMenuBar.show();
-						hoverMenuBar.position({ my: 'center bottom', at: 'center top', of: element });
-					},
-					function onCbMouseLeave() {
-						hoverMenuBar.hide();
-					}
-				);
+				// if the content block comes on the email from the beginning (editing emails)
+				// then, add the extra-html needed for that content block
+				if(element.parents('.' + constants.canvasClass).length){
+					setupContentBlockElements();
+				}
+				else{
+					// set a listener to add extra-html once the content block is dropped on a email
+					element.one('replacedElement', setupContentBlockElements);
+				}
+
 			}
 
-			function setupDropHere(){
+			/**
+			 * @name setupContentBlockElements
+			 * @description Adds extra html needed for the content block:
+			 *              drop-here placeholders
+			 *              hover menu
+			 * @return {[type]} [description]
+			 */
+			function setupContentBlockElements(){
+				
 				// insert "drop-here" legend after each element
 				var dropHere = compile($('#viewTemplates .drop-here').clone())(scope);
 				dropHere.insertAfter(element);
-				dropHere.data('contentBlock', scope.$id);
+				dropHere.attr('data-content-block', scope.$id);
 				dropHere.droppable(values.droppableOptions);
+
+
+				var hoverMenuBar = compile($('#viewTemplates .content-block-menu-bar').clone())(scope);
+				element.append(hoverMenuBar);
+				element.on('mouseover',
+					function onCbMouseEnter() {
+						hoverMenuBar.position({ my: 'center bottom', at: 'center top', of: element });
+					}
+				);
 			}
 
 			init();
