@@ -53,7 +53,7 @@ function editorContentBlockDirective(angular, app) {
 			 *              hover menu
 			 * @return {[type]} [description]
 			 */
-			function setupContentBlockElements(){
+			function setupContentBlockElements() {
 
 				// insert "drop-here" legend after each element
 				var dropHere = compile($('#viewTemplates .drop-here').clone())(scope);
@@ -64,20 +64,41 @@ function editorContentBlockDirective(angular, app) {
 				var hoverMenuBar = compile($('#viewTemplates .' + constants.overlayMenuBarClass).clone())(scope);
 				element.append(hoverMenuBar);
 
+				hoverMenuBar.find('.duplicate').on('click', function duplicateContentBlock(){
+					var duplicate = getCleanHtml(element.clone());
+					duplicate.insertAfter(element);
+
+					compile(duplicate)(scope);
+				});
+
+				hoverMenuBar.find('.delete').on('click', function deleteContentBlock(){
+					element.remove();
+				});
+
 				var overlay = $('#viewTemplates .' + constants.overlayClass).clone();
 				element.append(overlay);
 
-				element.on('mouseover',
-					function onCbMouseEnter() {
-						hoverMenuBar.position({ my: 'center bottom', at: 'center top', of: element });
+				element.on('mouseover', function onContentBlockMouseOver() {
+					hoverMenuBar.position({ my: 'center bottom', at: 'center top', of: element });
 
-						overlay.height(element.height()).width(element.width());
-						overlay.position({ my: 'center center', at: 'center center', of: element, collision: 'none', within: element });
-					}
-				);
+					overlay.height(element.height()).width(element.width());
+					overlay.position({ my: 'center center', at: 'center center', of: element, collision: 'none', within: element });
+				});
 
-				// load editors
-				
+				loadEditors();
+			}
+
+			/**
+			 * @name getCleanHtml
+			 * @description Removes content block extra elements from cloned content block
+			 * @return {[type]} [description]
+			 */
+			function getCleanHtml(contentBlockHtml) {
+				contentBlockHtml
+					.removeClass('ng-isolate-scope ng-scope')
+					.find('.' + constants.overlayClass + ', .' + constants.overlayMenuBarClass)
+					.remove();
+				return contentBlockHtml;			
 			}
 
 			/**
@@ -100,7 +121,10 @@ function editorContentBlockDirective(angular, app) {
 						// check for data-editor attributes on editable area
 						if(keys.indexOf('editor') === 0 && !editorsLoaded[keys]){
 							window.module = {};
+							//converts editorText to editor-text
 							var parsedName = keys.replace(rmultiDash, "$1-$2" ).toLowerCase();
+
+							// /components/editor-text/editor-text.bundle.js
 							loadJS('/components/' + parsedName + '/' + parsedName + '.bundle.js', onEditorLoaded);
 						}
 					}
