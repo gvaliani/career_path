@@ -1,23 +1,23 @@
-function droppableContentBlockDirective(angular, app) {
+function draggableContentBlockDirective(angular, app) {
 	'use strict';
 
 	'use angular template'; //jshint ignore:line
 
-	app.directive('droppableContentBlock', droppableContentBlockDirective);
+	app.directive('draggableContentBlock', draggableContentBlockDirective);
 
-	droppableContentBlockDirective.$inject = ['$log', '_','constants', '$compile'];
+	draggableContentBlockDirective.$inject = ['$log', '_','constants', '$compile'];
 
 	/**
-	* @name app.directive: droppableContentBlock
+	* @name app.directive: draggableContentBlock
 	*
 	* @description
 	*  Drag and drop content block
 	* 
 	* @example
-	<div class="droppableContentBlock">
+	<div class="draggableContentBlock">
 	</div>
 	 */
-	function droppableContentBlockDirective($log, _, constants, $compile){
+	function draggableContentBlockDirective($log, _, constants, $compile){
 
 		return {
 			restrict:'C',
@@ -25,13 +25,14 @@ function droppableContentBlockDirective(angular, app) {
 			template: '<div data-dropped-html="{{::block.html}}"><img data-ng-src="{{block.thumbnailUrl}}" alt="{{block.name}}" class="img-polaroid"/></div>',
 			controllerAs: 'editorCtrl',
 			bindToController: true,
-			controller: droppableContentBlockController
+			controller: draggableContentBlockController
 		};
 
 
 		function link(scope, element, attributes, ctrl){
 
-			var draggableHelper = $('#viewTemplates').find('img.droppableContentBlockDrag').clone();
+			var draggableHelper = $('#viewTemplates').find('img.draggableContentBlockDrag').clone(),
+				editorCanvas = $('#editor-canvas');
 
             element.draggable({
                 helper: 'clone',
@@ -47,6 +48,7 @@ function droppableContentBlockDirective(angular, app) {
                     	.append(draggableHelper); //hover image on layout content block
                 },
                 stop: function() {
+                	editorCanvas.removeClass('dragging');
                     // rootScope.safeApply(function() {
                     //     scope.$parent.disableOverlays = false;
                     // });
@@ -57,7 +59,7 @@ function droppableContentBlockDirective(angular, app) {
 
 		}
 
-		function droppableContentBlockController(){
+		function draggableContentBlockController(){
 			
 			var self = this; //jshint ignore:line
 
@@ -81,4 +83,4 @@ function droppableContentBlockDirective(angular, app) {
 	}
 }
 
-module.exports = droppableContentBlockDirective;
+module.exports = draggableContentBlockDirective;

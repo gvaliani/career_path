@@ -75,7 +75,7 @@ function editorCanvasDirective(angular, app) {
   		        axis: 'y',
 			        cursor: 'url("/images/closedhand.cur"), default',
 			        items: 'tr > td > .row.' + constants.contentBlockClass,
-			        // handle: '.drag',
+			        handle: '.drag',
 			        containment: '#layoutContainer',
 			        revert: false,
 			        refreshPositions: true,
@@ -108,7 +108,7 @@ function editorCanvasDirective(angular, app) {
 	            // scope.disableOverlays = true;
 	            // element.addClass('hideOverlays');
 
-	            // if (!ui.item.hasClass(configuration.droppableContentBlockClass)) {
+	            // if (!ui.item.hasClass(configuration.draggableContentBlockClass)) {
 	            //     // if sortable starts with a content block
 	            //     scope.dragStartPosition = {
 	            //         position: element.find('.' + configuration.contentBlockClass).index(ui.item),
@@ -132,7 +132,7 @@ function editorCanvasDirective(angular, app) {
 	            // this event is triggered in two occasions,
 	            // 1) when we sort the content blocks inside the editor (prevent to pub the changed event -this is done on the drop stop event-)
 	            // 2) when we drop a layout content block
-	            if (ui.item.hasClass(constants.droppableContentBlockClass)) {
+	            if (ui.item.hasClass(constants.draggableContentBlockClass)) {
 	                //drag of a new content block
 	                // if (scope.droppedContent.indexOf('data-no-duplicate=') > 0) {
 	                //     var noDuplicateType = $(scope.droppedContent).attr("data-no-duplicate");

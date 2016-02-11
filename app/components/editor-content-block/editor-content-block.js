@@ -33,15 +33,25 @@ function editorContentBlockDirective(angular, app) {
 				element = $(element);
 				element.attr('data-id', scope.$id);
 
+				// if the content block comes on the email from the beginning (editing emails)
+				// then, add the extra-html needed for that content block
 				if(element.parents('.' + constants.canvasClass).length){
 					setupContentBlockElements();
 				}
 				else{
+					// set a listener to add extra-html once the content block is dropped on a email
 					element.one('replacedElement', setupContentBlockElements);
 				}
 
 			}
 
+			/**
+			 * @name setupContentBlockElements
+			 * @description Adds extra html needed for the content block:
+			 *              drop-here placeholders
+			 *              hover menu
+			 * @return {[type]} [description]
+			 */
 			function setupContentBlockElements(){
 				
 				// insert "drop-here" legend after each element
@@ -52,15 +62,10 @@ function editorContentBlockDirective(angular, app) {
 
 
 				var hoverMenuBar = compile($('#viewTemplates .content-block-menu-bar').clone())(scope);
-				hoverMenuBar.insertBefore(element);
-
-				element.hover(
+				element.append(hoverMenuBar);
+				element.on('mouseover',
 					function onCbMouseEnter() {
-						hoverMenuBar.show();
 						hoverMenuBar.position({ my: 'center bottom', at: 'center top', of: element });
-					},
-					function onCbMouseLeave() {
-						hoverMenuBar.hide();
 					}
 				);
 			}

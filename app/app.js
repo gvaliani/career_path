@@ -69,7 +69,7 @@
 
                 global.errorHandler = function (exception, cause, callback, errorCallback) {
 
-                    var stack = stackTrace({ e: exception });
+                    var stack = printStackTrace({ e: exception });
 
                     var exceptionData = {
                         fileName: exception.url,

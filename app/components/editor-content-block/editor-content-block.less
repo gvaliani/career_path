@@ -1,0 +1,35 @@
+	.editor-content-block:hover > .content-block-menu-bar{
+		display:block;
+	}
+
+	.content-block-menu-bar {
+		position: absolute;
+		display: none;
+		padding: 10px;
+	    background-color:#484848;
+	    border:1px white solid;
+	    text-align:center;
+	    width:200px;
+		z-index: 100;
+
+		a {
+			color: #fff;
+
+			&:hover {
+				color: #fff!important;
+			}
+		}
+
+		.btn-inverse {
+			color: #fff;
+			background-color: #363636;
+			background-repeat: repeat-x;
+			background-image: linear-gradient(to bottom, #444444, #222222);
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+			&:hover, &:focus, &:active, &:disabled {
+				color: #fff;
+				background-color: #222222;
+			}
+		}
+	}
