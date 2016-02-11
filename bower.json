@@ -13,6 +13,8 @@
     "angular-mocks": "~1.4.8",
     "jasmine": "~2.3.4",
     "angular-ui-router": "~0.2.15",
-    "angular-ui": "~0.4.0"
+    "angular-ui": "~0.4.0",
+    "angular-froala": "~2.1.0",
+    "loadcss": "https://github.com/filamentgroup/loadCSS.git#~0.2.4"
   }
 }

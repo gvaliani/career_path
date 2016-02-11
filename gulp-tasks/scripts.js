@@ -25,6 +25,7 @@ function scripts(gulp, $){
             'bower_components/angular-ui-router/release/angular-ui-router.js',
             'bower_components/underscore/underscore-min.js',
             'bower_components/loadJS/loadJS.js',
+            'bower_components/loadcss/loadCSS.js',
             'bower_components/bootstrap/dist/js/bootstrap.min.js',
             'lib/jquery-ui-1.11.0.js',
             'lib/stacktrace.js'

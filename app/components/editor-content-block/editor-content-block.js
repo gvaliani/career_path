@@ -3,8 +3,9 @@ function editorContentBlockDirective(angular, app) {
 
 	'use angular template'; //jshint ignore:line
 
-	app.directive('editorContentBlock', editorContentBlockDirective);
 
+	var editorsLoaded = [];
+	app.directive('editorContentBlock', editorContentBlockDirective);
 	editorContentBlockDirective.$inject = ['$log', '_','$compile','constants','values'];
 
 	/**
@@ -74,10 +75,45 @@ function editorContentBlockDirective(angular, app) {
 						overlay.position({ my: 'center center', at: 'center center', of: element, collision: 'none', within: element });
 					}
 				);
+
+				// load editors
+				
+			}
+
+			/**
+			 * Load directives for the different kind of editors associated with the content block
+			 * @return {[type]} [description]
+			 */
+			function loadEditors(){
+
+				// regex to parse from camelCase to dash camel-case
+				var rmultiDash = /([a-z])([A-Z])/g;
+
+				// get the different editable areas
+				editableAreas = element.find('[data-editable]');
+
+				// foreach editable area, loads its editors
+				for (var i = 0; i < editableArea.length; i++) {
+					
+					for(var keys in editableArea[i].data()){
+
+						// check for data-editor attributes on editable area
+						if(keys.indexOf('editor') === 0 && !editorsLoaded[keys]){
+							window.module = {};
+							var parsedName = keys.replace(rmultiDash, "$1-$2" ).toLowerCase();
+							loadJS('/components/' + parsedName + '/' + parsedName + '.bundle.js', onEditorLoaded);
+						}
+					}
+				}	
+			}
+
+			function onEditorLoaded(){
+				console.log(module.exports);
 			}
 
 			init();
 		}
+
 	}
 }
 

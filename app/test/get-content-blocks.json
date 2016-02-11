@@ -4,13 +4,15 @@
 		"thumbnailUrl":"/images/contentblocks/textblockpreview_new.jpg",
 		"description":"Layout TextBlock",
 		"name":"TextBlock",
-		"html":"<table class=\"row editor-content-block\"><tr><td editable=\"true\" class=\"editor-default-value\" text-editor=\"true\" style=\"padding-top: 10px; padding-bottom: 10px;\"><div data-contenteditable=\"true\" style=\"font-family:Arial, Helvetica, sans-serif; font-size:11pt; \"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, magni natus voluptas vero sit nesciunt consequatur eveniet iure tempora ex! Quas iure mollitia aut aspernatur. Voluptas non harum reiciendis vel? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, nobis, at, accusamus cumque sit laboriosam non voluptatibus totam iste fugit earum harum nam voluptates officiis et laudantium rem dolorem minus!</p></div></td></tr></table>"
+		"responsive": true,
+		"html":"<table class=\"row editor-content-block\"><tr data-editable=\"true\" class=\"editor-default-value\" data-editor-text=\"true\" style=\"padding-top: 10px; padding-bottom: 10px;\"><td data-contenteditable=\"true\" style=\"font-family:Arial, Helvetica, sans-serif; font-size:11pt; \"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, magni natus voluptas vero sit nesciunt consequatur eveniet iure tempora ex! Quas iure mollitia aut aspernatur. Voluptas non harum reiciendis vel? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, nobis, at, accusamus cumque sit laboriosam non voluptatibus totam iste fugit earum harum nam voluptates officiis et laudantium rem dolorem minus!</p></td></tr></table>"
 	},
 	{
 		"id":2,
 		"thumbnailUrl":"/images/contentblocks/imageblockpreview_new.jpg",
 		"description":"Layout ImageBlock",
 		"name":"ImageBlock",
+		"responsive": true,
 		"html":"<table class=\"row editor-content-block\"><tbody><tr><td class=\"wrapper last\"><table class=\"twelve columns\"><tbody><tr style=\"padding-top: 10px; padding-bottom: 10px;\"><td data-editable=\"true\" class=\"editor-default-value\" data-image-editor=\"true\"><img width=\"560\" height=\"112\" data-file-width=\"776\" data-file-height=\"156\" data-file-id=\"0\" src=\"/Images/LayoutPreviews/imageblockdefault.jpg\"></td></tr></tbody></table></td></tr></tbody></table>"
 	},
 	{
@@ -80,4 +82,12 @@
 	}
 ]
 
+
+
 	
+
+
+
+
+
+
