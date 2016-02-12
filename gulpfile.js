@@ -120,11 +120,11 @@ gulp.task('scripts', ['libsBundle','appBundle'], function(){
 *********************
 */
 
-gulp.task('less', function(){
-    return styleTasks.less();
+gulp.task('sass', function(){
+    return styleTasks.sass();
 });
 
-gulp.task('styles', ['less', 'resources'], function(){
+gulp.task('styles', ['sass', 'resources'], function(){
     return styleTasks.autoprefixAndMin();
 });
 
@@ -181,7 +181,7 @@ gulp.task('docs', function(){
 gulp.task('develop', function(){
     gulp.watch(['index.html'], ['html:serve']);
     gulp.watch(['app/components/**/*.html'], ['scripts']);
-    gulp.watch(['app/styles/**/*.less','app/components/**/*.less', 'app/routes/**/*.less','app/styles/*.less'], ['styles']);
+    gulp.watch(['app/styles/**/*.scss','app/components/**/*.scss', 'app/routes/**/*.scss','app/styles/*.scss'], ['styles']);
     gulp.watch([$.paths.js.app], ['scripts']);
     gulp.watch(['app/routes/**/*.html'], ['styles']);
 });

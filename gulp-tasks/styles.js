@@ -2,10 +2,10 @@ function styleTasks(gulp, $){
 	
 	var path = require('path');
 	$.paths.styles = {
-		base: 'app/styles/base.less',
-		components: 'app/**/*.less',
+		base: 'app/styles/base.scss',
+		components: 'app/**/*.scss',
 		tmpComponents: 'tmp/**/*.css',
-		resources: ['app/**/*', '!app/styles/**/*.less','!app/**/*.js','!app/**/*.map']
+		resources: ['app/**/*', '!app/styles/**/*.scss','!app/**/*.js','!app/**/*.map']
 	};
 
 	var AUTOPREFIXER_BROWSERS = [
@@ -20,9 +20,9 @@ function styleTasks(gulp, $){
 	  'bb >= 10'
 	];
 
-	function less(){
+	function sass(){
 		return gulp.src([$.paths.styles.components])
-			.pipe($.less())
+			.pipe($.sass())
 		 	.on('error', $.util.log)
 			.pipe(gulp.dest($.paths.tmp));
 	}
@@ -47,7 +47,7 @@ function styleTasks(gulp, $){
 
 
 	return {
-		less:less,
+		sass:sass,
 		autoprefixAndMin: autoprefixAndMin,
 		moveResourcesToDist: moveResourcesToDist
 	};

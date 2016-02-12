@@ -1,0 +1,47 @@
+/*Primary Colors */
+$color-CoreBlue: #002663;
+$color-Purple: #77216F;
+$color-Aqua:#009BBB;
+$color-Teal:#35C4B5;
+$color-Green:#3F9C35;
+$color-Yellow:#F2AF00;
+$color-Orange:#ED5929;
+$color-Gray:#8B8D8E;
+$color-White:#fff;
+
+/*Secondary Colors - Dark */
+$color-Dark-Purple:#5E2750;
+$color-Dark-Aqua:#006890;
+$color-Dark-Teal:#008566;
+$color-Dark-Green:#00693C;
+$color-Dark-Yellow:#CE8E00;
+$color-Dark-Orange:#A33F1F;
+$color-Dark-Gray:#4D4F53;
+
+
+/*Secondary Colors - Light */
+$color-Light-Purple:#9C5FB5;
+$color-Light-Aqua:#90D7E7;
+$color-Light-Teal:#7FD5C5;
+$color-Light-Green:#A5D867;
+$color-Light-Yellow:#F3CF45;
+$color-Light-Orange:#E98300;
+$color-Light-Gray:#ADAFAF;
+
+/*iGuide */
+$link-light:	$color-Light-Aqua;
+$link-dark:	$color-Dark-Aqua;
+$icon-light:	$color-Light-Gray;
+$icon-dark:	$color-Dark-Gray;
+$button-light:	$color-Light-Gray;
+$button-dark:	$color-Dark-Gray;
+$color-Text:#222222;
+
+
+/* Fonts */
+
+$BentonSans: 'BentonSans', Arial;
+$BentonSans-Bold:'BentonSans-Bd', Arial;
+$BentonSans-Bk: 'BentonSans-Bk', Arial;
+$BentonSans-Light: 'BentonSans-Lt', Arial;
+$BentonSans-Medium: 'BentonSans-Md', Arial;
