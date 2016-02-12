@@ -12,9 +12,21 @@ function ExampleService(angular, app) {
 		};
 
 		function getAll(){
-			return $http.get('/api/contentblocks').then(function onOk(response){
-				return response.data;
-			});
+			// Mock imnplementation
+			var defer = $q.defer();
+			setTimeout(function fakeDelay() {
+				defer.resolve({
+					name: 'John'
+				});
+			}, 2000);
+			return defer.promise;
+
+
+
+			// Real implementation
+			// return $http.get('/api/contentblocks').then(function onOk(response){
+			// 	return response.data;
+			// });
 		}
 	}
 }
