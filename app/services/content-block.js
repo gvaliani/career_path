@@ -1,22 +1,22 @@
-function contentBlockServiceWrapper(angular, app) {
+function ExampleService(angular, app) {
 	'use strict';
 
+	app.factory('exampleService', exampleService);
 
-	app.factory('contentBlockService', contentBlockService);
+	exampleService.$inject = ['constants','values', '$q', '$http'];
 
-	contentBlockService.$inject = ['constants','values', '$q', '$http'];
+	function exampleService(constants, values, $q, $http){
 
-	function contentBlockService(constants, values, $q, $http){
+		return {
+			getAll:getAll
+		};
+
 		function getAll(){
 			return $http.get('/api/contentblocks').then(function onOk(response){
 				return response.data;
 			});
 		}
-
-		return {
-			getAll:getAll
-		};
 	}
 }
 
-module.exports = contentBlockServiceWrapper;
+module.exports = ExampleService;

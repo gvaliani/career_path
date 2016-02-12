@@ -39,8 +39,6 @@
 					}]
 				}
 			});
-
-			//.state('alternative', getStateConfig('/alternative', 'alternative.template.html', 'alternativeCtrl', 'alternative'));
 		}
 	]);
 
@@ -56,4 +54,6 @@
 	// Modal directive.
 	require('./components/modal/modal.js')(angular, app);
 	require('./components/modal/modal.service.js')(angular, app);
+	
+	require('./components/menu-header/menu-header.js')(angular, app);
 })();
