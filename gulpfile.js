@@ -86,7 +86,6 @@ $.isDebug = false;
 var scriptTasks = getTasks('scripts'),
     styleTasks = getTasks('styles'),
     htmlTasks = getTasks('html'),
-    serveTasks = getTasks('serve'),
     testsTasks =getTasks('tests');
 
 
@@ -141,10 +140,6 @@ gulp.task('html:build', function(){
     return htmlTasks.htmlBuild();
 });
 
-gulp.task('serve', ['html:serve','scripts','styles'], function () {
-    return serveTasks.serve();
-});
-
 gulp.task('build', ['spec','html:build','scripts','styles'], function () {
     return { }; // do nothing other than the pre-reqs (DO NOT SERVE!)
 });
@@ -181,4 +176,12 @@ gulp.task('coverage', function(){
 
 gulp.task('docs', function(){
     return scriptTasks.docs();
+});
+
+gulp.task('develop', function(){
+    gulp.watch(['index.html'], ['html:serve']);
+    gulp.watch(['app/components/**/*.html'], ['scripts']);
+    gulp.watch(['app/styles/**/*.less','app/components/**/*.less', 'app/routes/**/*.less','app/styles/*.less'], ['styles']);
+    gulp.watch([$.paths.js.app], ['scripts']);
+    gulp.watch(['app/routes/**/*.html'], ['styles']);
 });

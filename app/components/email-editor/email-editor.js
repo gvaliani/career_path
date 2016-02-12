@@ -8,7 +8,7 @@ function emailEditorDirective(angular, app) {
 	require('./../../services/message-service.js')(angular, app);
 
 	// directives
-	require('./../droppable-content-block/droppable-content-block.js')(angular, app);
+	require('./../draggable-content-block/draggable-content-block.js')(angular, app);
 	require('./../editor-content-block/editor-content-block.js')(angular, app);
 	require('./../editor-canvas/editor-canvas.js')(angular, app);
 

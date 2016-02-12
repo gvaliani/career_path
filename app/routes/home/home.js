@@ -5,9 +5,12 @@ window.homeController = function homeController(angular, app) {
 
 	app.controller('homeCtrl', homeCtrl);
 
-	require('./../../components/email-editor/email-editor.js')(angular, app);
-
-	function homeCtrl(){
+	homeCtrl.$inject = ['_'];
+	function homeCtrl(_){
 		var self = this; //jshint ignore:line
+
+		return _.extend(self, {
+			section: 'Home content'
+		});
 	}
 };
