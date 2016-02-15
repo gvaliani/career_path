@@ -3,6 +3,7 @@ function styleTasks(gulp, $){
 	var path = require('path');
 	$.paths.styles = {
 		base: 'app/styles/base.scss',
+		bootstrapBase: 'bower_components/bootstrap-sass/assets/stylesheets',
 		components: 'app/**/*.scss',
 		tmpComponents: 'tmp/**/*.css',
 		resources: ['app/**/*', '!app/styles/**/*.scss','!app/**/*.js','!app/**/*.map']
@@ -22,7 +23,9 @@ function styleTasks(gulp, $){
 
 	function sass(){
 		return gulp.src([$.paths.styles.components])
-			.pipe($.sass())
+			.pipe($.sass({
+				includePaths: [$.paths.styles.bootstrapBase]
+			}))
 		 	.on('error', $.util.log)
 			.pipe(gulp.dest($.paths.tmp));
 	}
@@ -47,7 +50,7 @@ function styleTasks(gulp, $){
 
 
 	return {
-		sass:sass,
+		sass: sass,
 		autoprefixAndMin: autoprefixAndMin,
 		moveResourcesToDist: moveResourcesToDist
 	};
